@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EdgeScout — Betting Tips</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&family=Inconsolata:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0d0d0d;
+    --surface: #141414;
+    --border: #242424;
+    --text: #e8e8e4;
+    --muted: #888;
+    --accent: #e8c84a;
+    --accent2: #3de88a;
+    --red: #e84a4a;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* TICKER */
+  .ticker-wrap {
+    background: var(--accent);
+    color: var(--bg);
+    padding: 0.4rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .ticker {
+    display: inline-block;
+    animation: ticker 25s linear infinite;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+  }
+
+  @keyframes ticker {
+    0% { transform: translateX(100vw); }
+    100% { transform: translateX(-100%); }
+  }
+
+  /* HEADER */
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 1.4rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 800;
+    font-size: 1.3rem;
+    letter-spacing: 0.04em;
+    color: var(--text);
+  }
+
+  .logo span { color: var(--accent); }
+
+  .header-stat {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+
+  .header-stat strong {
+    color: var(--accent2);
+  }
+
+  /* HERO */
+  .hero {
+    padding: 5rem 3rem 4rem;
+    max-width: 900px;
+    position: relative;
+  }
+
+  .hero-deco {
+    position: absolute;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    opacity: 0.85;
+  }
+
+  .label {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  h1 {
+    font-family: 'Barlow', sans-serif;
+    font-size: clamp(2.8rem, 6vw, 4.6rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+    margin-bottom: 1.5rem;
+    color: var(--text);
+  }
+
+  h1 .highlight {
+    color: var(--accent);
+    display: block;
+  }
+
+  .hero-body {
+    color: #d8d8d4;
+    max-width: 520px;
+    line-height: 1.8;
+    font-size: 1.05rem;
+  }
+
+  /* STATS GRID */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 0;
+  }
+
+  .stat-cell {
+    padding: 2.5rem 2rem;
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+
+  .stat-cell:last-child { border-right: none; }
+
+  .stat-cell::before {
+    content: attr(data-n);
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 0.6rem;
+    color: var(--border);
+    letter-spacing: 0.1em;
+  }
+
+  .stat-big {
+    font-family: 'Barlow', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1;
+    letter-spacing: 0.01em;
+  }
+
+  .stat-big .unit {
+    font-size: 1.4rem;
+    color: var(--accent);
+  }
+
+  .stat-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 0.5rem;
+  }
+
+  .stat-full {
+    font-size: 0.78rem;
+    color: var(--accent);
+    margin-top: 0.4rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  .stat-sub {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 0.25rem;
+  }
+
+  /* MONTHS */
+  .months-section {
+    padding: 4rem 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  h2 {
+    font-family: 'Barlow', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  .section-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .months-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1rem;
+  }
+
+  .month-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .month-block::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accent2);
+  }
+
+  .month-name {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .month-pts {
+    font-family: 'Barlow', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--accent2);
+    letter-spacing: 0.01em;
+  }
+
+  .stake-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .stake-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-right: 0.5rem;
+  }
+
+  .stake-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 0.4rem 1rem;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: all 0.15s;
+  }
+
+  .stake-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .stake-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--bg);
+  }
+
+  .month-gbp {
+    font-family: 'Barlow', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-top: 0.4rem;
+    letter-spacing: 0.01em;
+    transition: color 0.2s;
+  }
+
+  .months-note {
+    margin-top: 1.2rem;
+    font-size: 0.75rem;
+    color: #555;
+    letter-spacing: 0.04em;
+  }
+
+  /* COPY SECTION */
+  .copy-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .copy-block {
+    padding: 3.5rem;
+    border-right: 1px solid var(--border);
+  }
+
+  .copy-block:last-child { border-right: none; }
+
+  .copy-block h4 {
+    font-family: 'Barlow', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .copy-block h4::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .copy-block h4:first-of-type {
+    margin-top: 0;
+  }
+
+  .copy-block h3 {
+    font-family: 'Barlow', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text);
+  }
+
+  .copy-block p {
+    color: #d8d8d4;
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .copy-block p + p { margin-top: 0.9rem; }
+
+  /* HONEST BOX */
+  .honest-box {
+    margin: 1.5rem 0 0;
+    background: rgba(232,200,74,0.05);
+    border: 1px solid rgba(232,200,74,0.2);
+    padding: 1rem 1.2rem;
+    font-size: 0.95rem;
+    color: #d8d8d4;
+    line-height: 1.7;
+  }
+
+  .honest-box strong {
+    color: var(--accent);
+  }
+
+  /* PROOF SECTION */
+  .proof-section {
+    padding: 4rem 3rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    text-align: center;
+  }
+
+  .proof-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .proof-text .label {
+    margin-bottom: 0.8rem;
+  }
+
+  .proof-text h2 {
+    margin-bottom: 1.2rem;
+  }
+
+  .proof-text p {
+    color: #d8d8d4;
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .proof-text p + p {
+    margin-top: 0.9rem;
+  }
+
+  .proof-badge {
+    flex-shrink: 0;
+  }
+
+  .badge-inner {
+    border: 1px solid var(--accent);
+    padding: 2rem 2.5rem;
+    text-align: center;
+    min-width: 200px;
+  }
+
+  .badge-title {
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.6rem;
+  }
+
+  .badge-name {
+    font-family: 'Barlow', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.2;
+    margin-bottom: 0.6rem;
+  }
+
+  .badge-since {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  /* TESTIMONIAL */
+  .testimonial-section {
+    padding: 4rem 0 4rem 3rem;
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .testimonial-section .section-head {
+    padding-right: 3rem;
+  }
+
+  .testimonial-scroll {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    padding-right: 3rem;
+    padding-bottom: 1rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+    cursor: grab;
+  }
+
+  .testimonial-scroll:active {
+    cursor: grabbing;
+  }
+
+  .testimonial-scroll::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .testimonial-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .testimonial-scroll::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 2px;
+  }
+
+  .testimonial-card {
+    flex: 0 0 480px;
+    border-left: 3px solid var(--accent);
+    padding: 2rem 2.5rem;
+    background: var(--surface);
+  }
+
+  .testimonial-quote {
+    font-size: 1rem;
+    color: #d8d8d4;
+    line-height: 1.8;
+    font-style: italic;
+    margin-bottom: 1.2rem;
+  }
+
+  .testimonial-attr {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .testimonial-attr strong {
+    color: var(--accent);
+  }
+
+  /* PRICING */
+  .pricing {
+    padding: 4rem 3rem;
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .price-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    max-width: 620px;
+    margin-top: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+  }
+
+  .price-block {
+    border: 1px solid var(--border);
+    padding: 2rem;
+    background: var(--surface);
+  }
+
+  .price-block.best {
+    border-color: var(--accent);
+    background: var(--surface);
+    position: relative;
+  }
+
+  .best-tag {
+    position: absolute;
+    top: -1px;
+    right: 1.5rem;
+    background: var(--accent);
+    color: var(--bg);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    font-weight: 700;
+  }
+
+  .price-type {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  .price-num {
+    font-family: 'Barlow', sans-serif;
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 0.8rem;
+  }
+
+  .price-block.best .price-num {
+    color: var(--accent);
+  }
+
+  .price-detail {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .price-saving {
+    font-size: 0.78rem;
+    color: var(--accent2);
+    margin-top: 0.5rem;
+    font-weight: 500;
+  }
+
+  .no-charge {
+    margin-top: 2rem;
+    font-size: 0.98rem;
+    color: #d8d8d4;
+    padding: 1.4rem 1.8rem;
+    border-left: 3px solid var(--accent2);
+    background: rgba(61, 232, 138, 0.05);
+    max-width: 620px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.7;
+    text-align: left;
+  }
+
+  .no-charge strong { color: var(--accent2); }
+
+  .cta-row {
+    margin-top: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  .btn {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--bg);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    padding: 0.9rem 2rem;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+
+  .btn:hover { opacity: 0.88; }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    font-size: 0.8rem;
+  }
+
+  /* DISCLAIMER */
+  .disclaimer {
+    padding: 2rem 3rem;
+    font-size: 0.82rem;
+    color: #aaa;
+    line-height: 1.7;
+    border-bottom: 1px solid var(--border);
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  footer {
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #333;
+  }
+
+  @media (min-width: 1400px) {
+    body {
+      max-width: 1400px;
+      margin: 0 auto;
+      box-shadow: 0 0 0 1px var(--border);
+    }
+  }
+
+  @media (max-width: 700px) {
+    header, .hero, .months-section, .pricing { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .stats { grid-template-columns: 1fr 1fr; }
+    .stat-cell { border-bottom: 1px solid var(--border); }
+    .months-grid { grid-template-columns: repeat(3, 1fr); }
+    .copy-grid { grid-template-columns: 1fr; }    .copy-block { border-right: none; border-bottom: 1px solid var(--border); padding: 2rem 1.5rem; }
+    .price-grid { grid-template-columns: 1fr; }
+    h1 { font-size: 2.8rem; }
+  }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  .chart-section {
+    padding: 4rem 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .chart-wrap {
+    margin-top: 2rem;
+    position: relative;
+    height: 320px;
+  }
+  .chart-note {
+    margin-top: 1rem;
+    font-size: 0.78rem;
+    color: var(--muted);
+    letter-spacing: 0.03em;
+  }
+</style>
+</head>
+<body>
+
+<div class="ticker-wrap">
+  <span class="ticker">
+    EDGESCOUT — OCT: +11.92pts &nbsp;·&nbsp; NOV: +31.95pts &nbsp;·&nbsp; DEC: +47.48pts &nbsp;·&nbsp; JAN: +1.75pts &nbsp;·&nbsp; FEB: +66.33pts &nbsp;·&nbsp; MAR: +30.3pts &nbsp;·&nbsp; SEASON TOTAL: +189.73pts &nbsp;·&nbsp; ROI: 25% &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span>
+</div>
+
+<header>
+  <div class="logo">EDGE<span>SCOUT</span></div>
+  <div class="header-stat">Season record: <strong>+189.73pts / 25% ROI</strong></div>
+</header>
+
+<div class="hero">
+  <span class="label">Football betting tips — 2024/25 season</span>
+  <h1>Big edges.<br><span class="highlight">Proven results.</span></h1>
+  <p class="hero-body">EdgeScout is a football tipping service built on finding <strong>high-edge opportunities in soft markets</strong>. We post selections when the value is genuine, record everything publicly, and let the numbers do the talking.</p>
+  <div class="hero-deco">
+    <svg width="280" height="280" viewBox="0 0 150 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="75" cy="75" r="65" stroke="#e8c84a" stroke-opacity="0.18" stroke-width="1"/>
+      <circle cx="75" cy="75" r="48" stroke="#e8c84a" stroke-opacity="0.28" stroke-width="1"/>
+      <circle cx="75" cy="75" r="30" stroke="#e8c84a" stroke-opacity="0.4" stroke-width="1.5"/>
+      <circle cx="75" cy="75" r="12" stroke="#e8c84a" stroke-opacity="0.55" stroke-width="1.5"/>
+      <line x1="75" y1="5"   x2="75" y2="145" stroke="#e8c84a" stroke-opacity="0.2" stroke-width="1"/>
+      <line x1="5"  y1="75"  x2="145" y2="75" stroke="#e8c84a" stroke-opacity="0.2" stroke-width="1"/>
+      <circle cx="75" cy="75" r="5" fill="#e8c84a" opacity="0.9"/>
+    </svg>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat-cell" data-n="01">
+    <div class="stat-big">189<span class="unit">pts</span></div>
+    <div class="stat-label">Profit since October</div>
+  </div>
+  <div class="stat-cell" data-n="02">
+    <div class="stat-big">25<span class="unit">%</span></div>
+    <div class="stat-label">Return on investment</div>
+    <div class="stat-sub">To advised stakes</div>
+  </div>
+  <div class="stat-cell" data-n="03">
+    <div class="stat-big" id="stat-monthly">£632</div>
+    <div class="stat-label">Avg. monthly return</div>
+    <div class="stat-sub" id="stat-monthly-sub">To £20 stakes</div>
+  </div>
+  <div class="stat-cell" data-n="04">
+    <div class="stat-big" id="stat-roc">126<span class="unit">%</span></div>
+    <div class="stat-label">Return on capital, since Oct</div>
+    <div class="stat-sub" id="stat-roc-sub">150pt bank at £20/pt</div>
+    <div class="stat-full" id="stat-full">£3,795 total return</div>
+  </div>
+  <div class="stat-cell" data-n="05">
+    <div class="stat-big">6<span class="unit">/6</span></div>
+    <div class="stat-label">Profitable months</div>
+    <div class="stat-sub">All positive so far</div>
+  </div>
+</div>
+
+<div class="months-section">
+  <div class="section-head">
+    <h2>Month by month</h2>
+    <div class="section-rule"></div>
+  </div>
+  <div class="stake-bar">
+    <span class="stake-label">Stake per point:</span>
+    <button class="stake-btn" data-stake="10">£10</button>
+    <button class="stake-btn active" data-stake="20">£20</button>
+    <button class="stake-btn" data-stake="30">£30</button>
+    <button class="stake-btn" data-stake="40">£40</button>
+    <button class="stake-btn" data-stake="50">£50</button>
+  </div>
+  <div class="months-grid">
+    <div class="month-block">
+      <div class="month-name">Oct</div>
+      <div class="month-pts">+11.92</div>
+      <div class="month-gbp" data-pts="11.92">+£238</div>
+    </div>
+    <div class="month-block">
+      <div class="month-name">Nov</div>
+      <div class="month-pts">+31.95</div>
+      <div class="month-gbp" data-pts="31.95">+£639</div>
+    </div>
+    <div class="month-block">
+      <div class="month-name">Dec</div>
+      <div class="month-pts">+47.48</div>
+      <div class="month-gbp" data-pts="47.48">+£950</div>
+    </div>
+    <div class="month-block">
+      <div class="month-name">Jan</div>
+      <div class="month-pts">+1.75</div>
+      <div class="month-gbp" data-pts="1.75">+£35</div>
+    </div>
+    <div class="month-block">
+      <div class="month-name">Feb</div>
+      <div class="month-pts">+66.33</div>
+      <div class="month-gbp" data-pts="66.33">+£1,327</div>
+    </div>
+    <div class="month-block">
+      <div class="month-name">Mar</div>
+      <div class="month-pts">+30.3</div>
+      <div class="month-gbp" data-pts="30.3">+£606</div>
+    </div>
+  </div>
+  <div class="months-note">£ figures based on flat staking to the selected amount per point. These are for illustration — bookmaker restrictions may apply.</div>
+</div>
+
+<div class="chart-section">
+  <div class="section-head">
+    <h2>Cumulative P&amp;L</h2>
+    <div class="section-rule"></div>
+  </div>
+  <div class="chart-wrap">
+    <canvas id="pnlChart"></canvas>
+  </div>
+  <div class="chart-note">Points to flat stakes, Oct 2025 – Mar 2026. Each point represents end-of-day cumulative P&amp;L.</div>
+</div>
+
+  <div class="copy-block">
+    <h3>What this is</h3>
+    <h4>High volume, high standards</h4>
+    <p>Football selections across the <strong>major European leagues and international tournaments</strong>. This is a <strong>high volume service</strong> — we post regularly, but only when the research genuinely supports a bet. There's no filler.</p>
+    <h4>Hybrid models</h4>
+    <p>We find value through a <strong>mix of quantitative modelling and qualitative analysis</strong>, targeting markets where bookmakers believe they're strong but, in our view, have it wrong. Those edges exist across a wider range of markets than most people assume, and we're <strong>constantly developing new models and finding new angles</strong> to stay ahead.</p>
+    <h4>Big bets</h4>
+    <p>We post <strong>big bets</strong> when we find good opportunities to compound value at higher odds — not on a fixed schedule, but when the edge is there. From just ten advised so far this season, the big bets are <strong>massively in profit</strong> — headlined by a <strong>54/1 winner</strong>.</p>
+    <h4>Keeping you in the loop</h4>
+    <p>Bets are sent directly to subscribers via <strong>Telegram</strong> — fast, simple, and no inbox clutter. You also receive a <strong>weekly email</strong> with our thoughts, updates on how things are going, and some of the thinking behind our approach. You'll always have a clear picture of how the service is performing and where we're focusing.</p>
+    <h4>Transparent records</h4>
+    <p>Everything is logged from day one to <strong>flat stakes</strong> and is <strong>independently proofed</strong>. No inflating a winning month by suddenly upping the stake, no shrinking it on losers. The record you see is the complete, unmanipulated record.</p>
+    <h4>Getting bets on</h4>
+    <p>A <strong>large number of our selections are available in betting shops</strong> across multiple UK bookmakers — we're not reliant on any one book, and our bets are spread across different firms. Selections are usually available at more than one bookie, and we sometimes offer <strong>alternative bets from the same angle</strong> to give you options if you're restricted or prefer a different market. A small number of selections also have exchange angles for those who need them.</p>
+  </div>
+</div>
+
+<div class="proof-section">
+  <div class="proof-inner">
+    <div class="proof-text">
+      <span class="label">Independent verification</span>
+      <h2>Fully transparent. Independently proofed.</h2>
+      <p>Every bet is recorded in full — the selection, the odds, the stake, and the result. Nothing is edited after the fact. You can see the complete record at any time, not just the highlights.</p>
+      <p>Since 8th January 2025, our results are being independently proofed by <strong>Smart Betting Club</strong>. The numbers you see are the numbers that happened.</p>
+    </div>
+    <div class="proof-badge">
+      <div class="badge-inner">
+        <div class="badge-title">Under proofing by</div>
+        <div class="badge-name">Smart Betting Club</div>
+        <div class="badge-since">Since 8th January 2025</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="testimonial-section">
+  <div class="section-head">
+    <h2>What subscribers say</h2>
+    <div class="section-rule"></div>
+  </div>
+  <div class="testimonial-scroll">
+    <div class="testimonial-card">
+      <div class="testimonial-quote">"I've tried a few services over the years and most of them don't survive contact with reality. EdgeScout is different — the volume is there, the selections make sense, and the record speaks for itself. The weekly updates are a nice touch too, keeps you in the loop without overcomplicating things."</div>
+      <div class="testimonial-attr"><strong>[Subscriber name]</strong> — Beta subscriber, Oct 2024</div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-quote">"What I appreciate most is the transparency. You can see every bet, every result, nothing hidden. I've been staking at £25 a point and it's been a very good season. January was a quiet month but that's betting — the overall picture is strong."</div>
+      <div class="testimonial-attr"><strong>[Subscriber name]</strong> — Beta subscriber, Oct 2024</div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-quote">"Most tipsters either go quiet when things get tough or start fiddling the numbers. Neither has happened here. The service does what it says — high volume, good edges, and you can actually get the bets on in a shop which makes a big difference."</div>
+      <div class="testimonial-attr"><strong>[Subscriber name]</strong> — Beta subscriber, Oct 2024</div>
+    </div>
+  </div>
+</div>
+
+<div class="pricing">
+  <div class="section-head">
+    <h2>Pricing</h2>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="price-grid">
+    <div class="price-block">
+      <div class="price-type">Monthly</div>
+      <div class="price-num">£50</div>
+      <div class="price-detail">Per active month. Cancel any time.</div>
+    </div>
+    <div class="price-block best">
+      <div class="best-tag">Best value</div>
+      <div class="price-type">Annual</div>
+      <div class="price-num">£365</div>
+      <div class="price-detail">12 months, one payment.</div>
+      <div class="price-saving">↓ Save £185 vs monthly</div>
+    </div>
+  </div>
+
+  <div class="no-charge">
+    <strong>No charge during pre-season.</strong> Monthly subscribers aren't billed during the summer break. This season there's one free month — it's a Euros summer, so we'll be active through part of it. In a standard year without a major tournament it would be two. You only pay when tips are live.
+  </div>
+
+  <div class="cta-row">
+    <a href="#" class="btn">Subscribe now</a>
+    <a href="#" class="btn btn-ghost">View full records</a>
+  </div>
+</div>
+
+<div class="disclaimer">
+  Betting carries risk. You may lose money. Losing runs can and will happen. Edges in football change quickly — past results do not guarantee future performance, and this applies here as much as anywhere. EdgeScout is an advisory service only; all betting decisions are your own. Please gamble responsibly. If gambling is causing you problems, visit begambleaware.org or call 0808 8020 133.
+</div>
+
+<footer>
+  <span>© 2025 EdgeScout</span>
+  <span>Results logged from Oct 2024</span>
+  <span>Betfair SP where applicable</span>
+</footer>
+
+</body>
+<script>
+  const TOTAL_PTS = 189.73;
+  const BANK_PTS = 150;
+  const MONTHS = 6;
+
+  const stakeBtns = document.querySelectorAll('.stake-btn');
+  const gbpCells = document.querySelectorAll('.month-gbp[data-pts]');
+  const statMonthly = document.getElementById('stat-monthly');
+  const statMonthlySub = document.getElementById('stat-monthly-sub');
+  const statRoc = document.getElementById('stat-roc');
+  const statRocSub = document.getElementById('stat-roc-sub');
+
+  const statFull = document.getElementById('stat-full');
+
+  function fmt(val) { return val.toLocaleString('en-GB', { maximumFractionDigits: 0 }); }
+
+  function updateAll(stake) {
+    gbpCells.forEach(cell => {
+      const pts = parseFloat(cell.dataset.pts);
+      cell.textContent = '+£' + fmt(pts * stake);
+    });
+    const monthly = (TOTAL_PTS * stake) / MONTHS;
+    statMonthly.textContent = '£' + fmt(monthly);
+    statMonthlySub.textContent = 'To £' + stake + ' stakes';
+    const bank = BANK_PTS * stake;
+    const totalReturn = TOTAL_PTS * stake;
+    const roc = Math.round(totalReturn / bank * 100);
+    statRoc.innerHTML = roc + '<span class="unit">%</span>';
+    statRocSub.textContent = '150pt bank at £' + stake + '/pt';
+    statFull.textContent = '£' + fmt(totalReturn) + ' total return';
+  }
+
+  stakeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      stakeBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      updateAll(parseInt(btn.dataset.stake));
+    });
+  });
+
+  // Drag to scroll testimonials
+  const scroll = document.querySelector('.testimonial-scroll');
+  let isDown = false, startX, scrollLeft;
+  scroll.addEventListener('mousedown', e => { isDown = true; startX = e.pageX - scroll.offsetLeft; scrollLeft = scroll.scrollLeft; });
+  scroll.addEventListener('mouseleave', () => isDown = false);
+  scroll.addEventListener('mouseup', () => isDown = false);
+  scroll.addEventListener('mousemove', e => { if (!isDown) return; e.preventDefault(); const x = e.pageX - scroll.offsetLeft; scroll.scrollLeft = scrollLeft - (x - startX) * 1.5; });
+
+  // P&L Chart
+  const chartDates = ["2025-10-01","2025-10-06","2025-10-09","2025-10-10","2025-10-12","2025-10-13","2025-10-14","2025-10-15","2025-10-18","2025-10-19","2025-10-20","2025-10-21","2025-10-22","2025-10-23","2025-10-24","2025-10-25","2025-10-26","2025-10-27","2025-10-28","2025-10-29","2025-10-30","2025-10-31","2025-11-01","2025-11-02","2025-11-03","2025-11-04","2025-11-05","2025-11-06","2025-11-07","2025-11-08","2025-11-09","2025-11-10","2025-11-12","2025-11-14","2025-11-15","2025-11-16","2025-11-17","2025-11-20","2025-11-21","2025-11-22","2025-11-23","2025-11-24","2025-11-25","2025-11-26","2025-11-27","2025-11-28","2025-11-29","2025-11-30","2025-12-02","2025-12-03","2025-12-04","2025-12-06","2025-12-07","2025-12-08","2025-12-09","2025-12-11","2025-12-12","2025-12-13","2025-12-14","2025-12-15","2025-12-17","2025-12-18","2025-12-19","2025-12-20","2025-12-21","2025-12-23","2025-12-24","2025-12-26","2025-12-27","2025-12-28","2025-12-29","2025-12-30","2026-01-01","2026-01-02","2026-01-03","2026-01-04","2026-01-06","2026-01-07","2026-01-08","2026-01-09","2026-01-10","2026-01-11","2026-01-12","2026-01-13","2026-01-14","2026-01-15","2026-01-16","2026-01-17","2026-01-18","2026-01-19","2026-01-20","2026-01-21","2026-01-22","2026-01-23","2026-01-24","2026-01-25","2026-01-26","2026-01-27","2026-01-28","2026-01-29","2026-01-30","2026-01-31","2026-02-01","2026-02-02","2026-02-03","2026-02-04","2026-02-06","2026-02-07","2026-02-08","2026-02-09","2026-02-10","2026-02-11","2026-02-12","2026-02-14","2026-02-15","2026-02-16","2026-02-17","2026-02-18","2026-02-19","2026-02-20","2026-02-21","2026-02-22","2026-02-23","2026-02-24","2026-02-25","2026-02-26","2026-02-27","2026-02-28","2026-03-01","2026-03-02","2026-03-03","2026-03-04","2026-03-05"];
+  const chartPnl = [0.0,30.0,33.5,29.5,27.5,29.95,28.95,27.95,22.95,27.35,26.35,24.35,20.35,17.35,16.55,17.92,13.92,12.92,17.92,14.92,13.92,10.92,10.22,13.72,19.22,15.22,14.72,17.07,16.07,14.07,29.4,28.4,25.4,25.8,31.6,32.3,35.85,37.35,33.35,33.85,32.35,41.35,57.55,56.55,63.05,61.05,68.55,63.55,71.05,71.55,75.55,63.55,57.55,60.15,56.35,62.15,60.15,71.4,70.4,75.4,96.9,98.5,97.5,98.5,96.5,105.1,101.1,108.6,120.6,121.93,115.93,109.93,104.93,103.93,103.43,101.33,102.08,102.08,101.08,97.08,103.28,118.58,121.08,119.08,118.08,115.08,112.08,131.78,123.78,125.28,127.68,122.68,123.68,122.68,128.08,145.08,143.08,141.08,130.08,123.08,119.08,111.68,104.68,102.68,106.38,96.38,103.63,117.43,117.33,119.33,113.33,111.13,106.13,106.63,119.03,122.03,120.13,119.13,120.33,117.33,163.63,169.71,168.71,164.61,163.31,156.31,161.31,178.01,185.51,188.71,189.31,193.31,198.31];
+
+  // Notable bets: {dateIndex, label, detail, pnl}
+  const notableBets = [
+    { date: "2025-10-06", label: "24/1 winner", detail: "New Caledonia handicap -1\nGibraltar vs New Caledonia · 06-10-2025", pnl: "+23pts" },
+    { date: "2025-11-09", label: "Four card winners", detail: "Five cards tipped, four winners at 4.33–6.0\n09-11-2025 · Inter/Lazio, Mirassol/Palmeiras", pnl: "+17.33pts" },
+    { date: "2025-12-17", label: "18/1 winner", detail: "Anytime goalscorer – Krisztian Keresztes\nDundee United vs Celtic · 17-12-2025", pnl: "+17pts" },
+    { date: "2026-01-17", label: "13/1 winner", detail: "Supersub anytime goalscorer – Joseph Olowu\nStockport vs Rotherham · 17-01-2026", pnl: "+12pts" },
+    { date: "2026-02-07", label: "17/1 winner", detail: "Mathias Jensen over 2.5 shots\nNewcastle vs Brentford · 07-02-2026", pnl: "+16pts" },
+    { date: "2026-02-21", label: "54/1 winner", detail: "Motherwell–St Mirren Bet Builder\nSt Mirren vs Motherwell · 21-02-2026", pnl: "+54pts" }
+  ];
+
+  const accentGold = '#e8c84a';
+  const accentGreen = '#3de88a';
+  const ctx = document.getElementById('pnlChart').getContext('2d');
+  const gradient = ctx.createLinearGradient(0, 0, 0, 320);
+  gradient.addColorStop(0, 'rgba(232,200,74,0.18)');
+  gradient.addColorStop(1, 'rgba(232,200,74,0)');
+
+  // Map notable bet dates to their data index
+  // Format YYYY-MM-DD -> DD-MM-YYYY
+  function fmtDate(d) {
+    const [y, m, day] = d.split('-');
+    return `${day}-${m}-${y}`;
+  }
+
+  const notableByDate = {};
+  notableBets.forEach(b => { notableByDate[b.date] = b; });
+
+  // Custom point radii — big for notable dates, 0 otherwise
+  const pointRadii = chartDates.map(d => notableByDate[d] ? 7 : 0);
+  const pointHoverRadii = chartDates.map(d => notableByDate[d] ? 9 : 4);
+  const pointBgColors = chartDates.map(d => notableByDate[d] ? accentGreen : accentGold);
+  const pointBorderColors = chartDates.map(d => notableByDate[d] ? accentGreen : accentGold);
+
+  const chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: chartDates,
+      datasets: [{
+        data: chartPnl,
+        borderColor: accentGold,
+        borderWidth: 2,
+        backgroundColor: gradient,
+        fill: true,
+        pointRadius: pointRadii,
+        pointHoverRadius: pointHoverRadii,
+        pointBackgroundColor: pointBgColors,
+        pointBorderColor: pointBorderColors,
+        pointBorderWidth: 2,
+        tension: 0.3
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#1a1a1a',
+          borderColor: '#333',
+          borderWidth: 1,
+          titleColor: '#888',
+          bodyColor: accentGold,
+          titleFont: { family: 'Barlow', size: 11 },
+          bodyFont: { family: 'Barlow', size: 14, weight: '700' },
+          callbacks: {
+            title: ctx => fmtDate(ctx[0].label),
+            label: ctx => {
+              const notable = notableByDate[ctx.label];
+              if (notable) return `${ctx.parsed.y.toFixed(2)}pts  ★ ${notable.label}`;
+              return `${ctx.parsed.y.toFixed(2)}pts`;
+            },
+            afterLabel: ctx => {
+              const notable = notableByDate[ctx.label];
+              return notable ? notable.detail : null;
+            }
+          },
+          afterBody: () => null
+        }
+      },
+      scales: {
+        x: {
+          ticks: { color: '#555', font: { family: 'Barlow', size: 10 }, maxTicksLimit: 8, maxRotation: 0, callback: (v) => typeof v === 'number' ? fmtDate(chartDates[v] || '') : '' },
+          grid: { color: 'rgba(255,255,255,0.04)' },
+          border: { color: '#333' }
+        },
+        y: {
+          ticks: { color: '#555', font: { family: 'Barlow', size: 10 }, callback: v => `${v}pts` },
+          grid: { color: 'rgba(255,255,255,0.04)' },
+          border: { color: '#333' }
+        }
+      },
+      onClick: (e, elements) => {
+        if (!elements.length) return;
+        const idx = elements[0].index;
+        const date = chartDates[idx];
+        const notable = notableByDate[date];
+        if (!notable) return;
+        showNotableCard(notable, e.native.clientX, e.native.clientY);
+      }
+    }
+  });
+
+  // Notable bet card
+  const card = document.createElement('div');
+  card.id = 'notable-card';
+  card.style.cssText = 'position:fixed;background:#1a1a1a;border:1px solid #3de88a;padding:1.2rem 1.4rem;font-family:Barlow,sans-serif;font-size:0.85rem;color:#d8d8d4;max-width:260px;z-index:1000;display:none;line-height:1.6;box-shadow:0 4px 24px rgba(0,0,0,0.5)';
+  document.body.appendChild(card);
+
+  function showNotableCard(bet, x, y) {
+    const lines = bet.detail.split('\n');
+    card.innerHTML = `
+      <div style="font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:#3de88a;margin-bottom:0.5rem">★ ${bet.label}</div>
+      <div style="font-weight:700;color:#fff;margin-bottom:0.3rem">${lines[0]}</div>
+      <div style="color:#888;font-size:0.78rem;margin-bottom:0.8rem">${lines[1] || ''}</div>
+      <div style="font-size:1.3rem;font-weight:800;color:#3de88a">${bet.pnl}</div>
+      <div style="margin-top:0.8rem;font-size:0.7rem;color:#555;cursor:pointer" onclick="document.getElementById('notable-card').style.display='none'">✕ close</div>`;
+    const vw = window.innerWidth, vh = window.innerHeight;
+    let left = x + 16, top = y - 20;
+    if (left + 280 > vw) left = x - 280;
+    if (top + 180 > vh) top = vh - 190;
+    card.style.left = left + 'px';
+    card.style.top = top + 'px';
+    card.style.display = 'block';
+  }
+
+  document.addEventListener('click', e => {
+    if (!e.target.closest('#notable-card') && !e.target.closest('canvas')) {
+      card.style.display = 'none';
+    }
+  });
+</script>
+</html>
