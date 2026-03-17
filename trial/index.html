@@ -1011,6 +1011,33 @@
   }
 
 </style>
+
+<script async src="https://cdn.promotekit.com/pk.js" data-promotekit="8b0de79d-abfe-4d18-827e-08ad70d10fee"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(function () {
+        document.querySelectorAll('a[href^="https://buy.stripe.com/"]').forEach(function (link) {
+            var oldBuyUrl = link.getAttribute("href");
+            var referralId = window.promotekit_referral;
+            if (!oldBuyUrl.includes("client_reference_id")) {
+                var separator = oldBuyUrl.includes("?") ? "&" : "?";
+                var newBuyUrl = oldBuyUrl + separator + "client_reference_id=" + referralId;
+                link.setAttribute("href", newBuyUrl);
+            }
+        });
+
+        document.querySelectorAll("[pricing-table-id]").forEach(function (element) {
+            element.setAttribute("client-reference-id", window.promotekit_referral);
+        });
+
+        document.querySelectorAll("[buy-button-id]").forEach(function (element) {
+            element.setAttribute("client-reference-id", window.promotekit_referral);
+        });
+    }, 1500);
+});
+</script>
+
+ 
 </head>
 <body>
 
