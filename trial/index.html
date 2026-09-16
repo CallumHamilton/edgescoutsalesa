@@ -17,6 +17,7 @@
     --accent: #e8b83a;
     --accent2: #3de88a;
     --red: #e84a4a;
+    --orange: #f28c28;
   }
 
   body {
@@ -943,6 +944,15 @@
     line-height: 1.8;
     max-width: 480px;
   }
+  .trial-break-inner .trial-break-telegram {
+    margin-top: 0.8rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  .trial-break-telegram a {
+    color: var(--accent);
+    font-weight: 700;
+  }
   .trial-price-block {
     text-align: center;
     flex-shrink: 0;
@@ -1245,7 +1255,7 @@ document.addEventListener("DOMContentLoaded", function () {
       <div class="month-gbp" data-pts="58.95">+£1,179</div>
     </div>
     <div class="month-block"><div class="month-name">Apr</div><div class="month-pts">+28.93</div><div class="month-gbp" data-pts="28.93">+£579</div></div>
-    <div class="month-block"><div class="month-name">May</div><div class="month-pts" style="color:var(--red)">−35.32</div><div class="month-gbp" data-pts="-35.32" style="color:var(--red)">−£706</div></div>
+    <div class="month-block"><div class="month-name">May</div><div class="month-pts" style="color:var(--orange)">−35.32</div><div class="month-gbp" data-pts="-35.32" style="color:var(--orange)">−£706</div></div>
     <div class="month-block"><div class="month-name">Jun</div><div class="month-pts">+34.03</div><div class="month-gbp" data-pts="34.03">+£681</div></div>
     <div class="month-block"><div class="month-name">Jul</div><div class="month-pts">+30.76</div><div class="month-gbp" data-pts="30.76">+£615</div></div>
   </div>
@@ -1269,6 +1279,7 @@ document.addEventListener("DOMContentLoaded", function () {
       <span class="trial-break-eyebrow">Full access · low commitment</span>
       <h3>See exactly what we do.<br><span>For £10.</span></h3>
       <p>Get every tip via Telegram and every subscriber update for two full weeks. Pay £10 today, then continue at £50/month unless you cancel before the first renewal.</p>
+      <p class="trial-break-telegram">You’ll need to install <a href="https://telegram.org/apps" target="_blank" rel="noopener">Telegram</a> to purchase, as this is where the bets are sent.</p>
     </div>
     <div class="trial-price-block">
       <div class="trial-price-num"><sup>£</sup>10</div>
@@ -1701,7 +1712,8 @@ window.addEventListener("load", function() {
   function updateAll(stake) {
     gbpCells.forEach(cell => {
       const pts = parseFloat(cell.dataset.pts);
-      cell.textContent = '+£' + fmt(pts * stake);
+      const value = pts * stake;
+      cell.textContent = (value < 0 ? '−£' : '+£') + fmt(Math.abs(value));
     });
     const monthly = (TOTAL_PTS * stake) / MONTHS;
     statMonthly.textContent = '£' + fmt(monthly);
