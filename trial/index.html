@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EdgeScout — Betting Tips</title>
+<title>Try EdgeScout for £10 — Two Weeks Full Access</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&family=Inconsolata:wght@400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -1019,9 +1019,9 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll('a[href^="https://buy.stripe.com/"]').forEach(function (link) {
             var oldBuyUrl = link.getAttribute("href");
             var referralId = window.promotekit_referral;
-            if (!oldBuyUrl.includes("client_reference_id")) {
+            if (referralId && !oldBuyUrl.includes("client_reference_id")) {
                 var separator = oldBuyUrl.includes("?") ? "&" : "?";
-                var newBuyUrl = oldBuyUrl + separator + "client_reference_id=" + referralId;
+                var newBuyUrl = oldBuyUrl + separator + "client_reference_id=" + encodeURIComponent(referralId);
                 link.setAttribute("href", newBuyUrl);
             }
         });
@@ -1043,13 +1043,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
 <header>
   <div class="logo">EDGE<span>SCOUT</span></div>
-  <div class="header-stat">Season record: <strong>+220.91pts / 28.95% ROI</strong></div>
+  <div class="header-stat">2025/26 record: <strong>+297pts / 17.7% ROI</strong></div>
 </header>
 
+<div class="trial-banner">
+  <div>
+    <div class="trial-banner-text"><strong>Try EdgeScout for £10.</strong> Two weeks of full access.</div>
+    <div class="trial-banner-sub">Every tip, every update, everything included.</div>
+  </div>
+  <a href="https://buy.stripe.com/4gM6oAbUngIHgl14NzdIA01" class="btn-trial">Start your trial →</a>
+</div>
 
 <div class="hero">
   <h1>Find the edge.<br><span class="highlight">Back the edge.</span></h1>
-  <p class="hero-body">EdgeScout is a football tipping service built on finding <strong>high-edge opportunities in soft markets</strong>. We post selections when the value is genuine, record everything publicly, and let the numbers do the talking.</p>
+  <p class="hero-body">EdgeScout finds <strong>high-edge opportunities in soft markets</strong>, posts when the value is real, and records everything publicly.</p>
+  <p class="hero-body" style="margin-top:1rem">Last season returned <strong>297 points at 17.7% ROI</strong> across club football and the World Cup. Try the complete service for two weeks for £10.</p>
+  <a href="https://buy.stripe.com/4gM6oAbUngIHgl14NzdIA01" class="btn" style="margin-top:1.5rem">Get two weeks for £10</a>
   <div class="hero-deco">
     <svg width="280" height="280" viewBox="0 0 150 150" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="75" cy="75" r="65" stroke="#e8b83a" stroke-opacity="0.18" stroke-width="1"/>
@@ -1065,38 +1074,38 @@ document.addEventListener("DOMContentLoaded", function () {
 
 <div class="stats-wrap"><div class="stats">
   <div class="stat-cell stat-hero" data-n="01">
-    <div class="stat-big">220.91<span class="unit">pts</span></div>
-    <div class="stat-label">Profit since October</div>
+    <div class="stat-big">297<span class="unit">pts</span></div>
+    <div class="stat-label">Profit in 2025/26</div>
   </div>
   <div class="stat-cell stat-hero" data-n="02">
-    <div class="stat-big">28.95<span class="unit">%</span></div>
+    <div class="stat-big">17.7<span class="unit">%</span></div>
     <div class="stat-label">Return on investment</div>
     <div class="stat-sub">To advised stakes</div>
   </div>
   <div class="stat-cell" data-n="03">
-    <div class="stat-big" id="stat-monthly">£632</div>
+    <div class="stat-big" id="stat-monthly">£595</div>
     <div class="stat-label">Avg. monthly return</div>
     <div class="stat-sub" id="stat-monthly-sub">To £20 stakes</div>
   </div>
   <div class="stat-cell" data-n="04">
-    <div class="stat-big" id="stat-roc">147<span class="unit">%</span></div>
-    <div class="stat-label">Return on capital, since Oct</div>
+    <div class="stat-big" id="stat-roc">198<span class="unit">%</span></div>
+    <div class="stat-label">Return on capital</div>
     <div class="stat-sub" id="stat-roc-sub">150pt bank at £20/pt</div>
-    <div class="stat-full" id="stat-full">£3,795 total return</div>
+    <div class="stat-full" id="stat-full">£5,948 total return</div>
   </div>
   <div class="stat-cell" data-n="05">
-    <div class="stat-big">0<span class="unit">/6</span></div>
-    <div class="stat-label">Losing months</div>
-    <div class="stat-sub">All positive so far</div>
+    <div class="stat-big">9<span class="unit">/10</span></div>
+    <div class="stat-label">Winning months</div>
+    <div class="stat-sub">Only May finished red</div>
   </div>
   <div class="stat-cell" data-n="06">
-    <div class="stat-big">21.36<span class="unit">%</span></div>
+    <div class="stat-big">19.4<span class="unit">%</span></div>
     <div class="stat-label">Strike rate</div>
-    <div class="stat-sub">163 winners from 763</div>
+    <div class="stat-sub">326 winners from 1680</div>
   </div>
 </div>
 </div>
-<div class="stats-date">Figures as of 09/03/2026</div>
+<div class="stats-date">Final 2025/26 figures · club season + World Cup included</div>
 
 <div class="months-section">
   <div class="section-head">
@@ -1114,13 +1123,13 @@ document.addEventListener("DOMContentLoaded", function () {
   <div class="months-grid">
     <div class="month-block">
       <div class="month-name">Oct</div>
-      <div class="month-pts">+11.92</div>
-      <div class="month-gbp" data-pts="11.92">+£238</div>
+      <div class="month-pts">+10.92</div>
+      <div class="month-gbp" data-pts="10.92">+£218</div>
     </div>
     <div class="month-block">
       <div class="month-name">Nov</div>
-      <div class="month-pts">+53.63</div>
-      <div class="month-gbp" data-pts="53.63">+£1,073</div>
+      <div class="month-pts">+52.63</div>
+      <div class="month-gbp" data-pts="52.63">+£1,053</div>
     </div>
     <div class="month-block">
       <div class="month-name">Dec</div>
@@ -1134,19 +1143,23 @@ document.addEventListener("DOMContentLoaded", function () {
     </div>
     <div class="month-block">
       <div class="month-name">Feb</div>
-      <div class="month-pts">+66.33</div>
-      <div class="month-gbp" data-pts="66.33">+£1,327</div>
+      <div class="month-pts">+68.38</div>
+      <div class="month-gbp" data-pts="68.38">+£1,368</div>
     </div>
     <div class="month-block">
       <div class="month-name">Mar</div>
-      <div class="month-pts">+42.9</div>
-      <div class="month-gbp" data-pts="42.9">+£858</div>
+      <div class="month-pts">+58.95</div>
+      <div class="month-gbp" data-pts="58.95">+£1,179</div>
     </div>
+    <div class="month-block"><div class="month-name">Apr</div><div class="month-pts">+28.93</div><div class="month-gbp" data-pts="28.93">+£579</div></div>
+    <div class="month-block"><div class="month-name">May</div><div class="month-pts" style="color:var(--red)">−35.32</div><div class="month-gbp" data-pts="-35.32" style="color:var(--red)">−£706</div></div>
+    <div class="month-block"><div class="month-name">Jun</div><div class="month-pts">+34.03</div><div class="month-gbp" data-pts="34.03">+£681</div></div>
+    <div class="month-block"><div class="month-name">Jul</div><div class="month-pts">+30.76</div><div class="month-gbp" data-pts="30.76">+£615</div></div>
   </div>
-  <div class="months-note">Figures based on flat staking to the selected amount per point. GBP figures are for illustration — bookmaker restrictions may apply at higher stakes.</div>
+  <div class="months-note">Flat staking to the selected amount per point. GBP figures are illustrative. Bookmaker restrictions may apply at higher stakes.</div>
 </div>
 
-<div class="chart-section">
+<div class="chart-section" style="display:none">
   <div class="section-head">
     <h2>Cumulative P&amp;L</h2>
     <div class="section-rule"></div>
@@ -1157,20 +1170,39 @@ document.addEventListener("DOMContentLoaded", function () {
   <div class="chart-note">Points to flat stakes, Oct 2025 – Mar 2026. Each point represents end-of-day cumulative P&amp;L.</div>
 </div>
 
+<div class="trial-break-section">
+  <div class="trial-break-inner">
+    <div>
+      <span class="trial-break-eyebrow">Full access · low commitment</span>
+      <h3>See exactly what we do.<br><span>For £10.</span></h3>
+      <p>Get every tip via Telegram and every subscriber update for two full weeks. Judge the service on the selections you actually receive.</p>
+    </div>
+    <div class="trial-price-block">
+      <div class="trial-price-num"><sup>£</sup>10</div>
+      <div class="trial-price-sub">Two weeks · full access</div>
+      <a href="https://buy.stripe.com/4gM6oAbUngIHgl14NzdIA01" class="btn">Start your trial</a>
+    </div>
+  </div>
+</div>
+
+<div class="copy-grid">
   <div class="copy-block">
-    <h3>What this is</h3>
+    <h4>Ready for 2026/27</h4>
+    <p>Last season closed at <strong>297 points</strong> and <strong>17.7% ROI</strong> across club football and the World Cup, all independently proofed. Same markets, same process, new campaign.</p>
     <h4>High volume, high standards</h4>
-    <p>Football selections across the <strong>major European leagues and international tournaments</strong>. This is a <strong>high volume service</strong> — typically around 150–200 bets per month across multiple markets — but we only post when the research genuinely supports it. There's no filler.</p>
+    <p>Selections across the <strong>major European leagues and international windows</strong>. Usually <strong>150–200 bets a month</strong> across different markets. We post when the research supports it.</p>
     <h4>Hybrid models</h4>
-    <p>We find value through a <strong>mix of quantitative modelling and qualitative analysis</strong>, targeting markets where bookmakers believe they're strong but leave huge inefficiencies. Those edges exist across a wider range of markets than most people assume, and we're <strong>constantly developing new models and finding new angles</strong> to stay ahead.</p>
+    <p>Value comes from <strong>quantitative modelling and qualitative analysis</strong>. We target markets where bookmakers think they're strong and we think they're wrong. The models keep developing as the season goes on.</p>
     <h4>Big bets</h4>
-    <p>We post <strong>big bets</strong> when we find good opportunities to compound value at higher odds when opportunities arise. From just ten advised so far this season, the big bets are <strong>massively in profit</strong> — headlined by a <strong>54/1 winner</strong>.</p>
+    <p>When there's a genuine opportunity at higher odds, we post a <strong>big bet</strong>. Last season included a <strong>54/1 winner</strong> and several other long-priced results.</p>
+    <h4>World Cup</h4>
+    <p>Official World Cup tips are in the proofed numbers above. Unofficial World Cup bets, available at only one major book, returned <strong>over 100 units</strong>, including a <strong>66/1 winner</strong>. Those sit outside the main advised record.</p>
     <h4>Keeping you in the loop</h4>
-    <p>Bets are sent directly to subscribers via <strong>Telegram</strong> when teams are announced. You also receive a <strong>weekly email</strong> with our thoughts, updates on how things are going, and some of the thinking behind our approach. You'll always have a clear picture of how the service is performing and where we're focusing.</p>
+    <p>Bets go out on <strong>Telegram</strong>. You also get a <strong>weekly email</strong> with how the week went and what we're seeing in the markets.</p>
     <h4>Transparent records</h4>
-    <p>Everything is logged from day one to <strong>flat stakes</strong> and is <strong>independently proofed</strong>. The record you see is the complete, unmanipulated record.</p>
+    <p>Everything is logged to <strong>flat stakes</strong> and <strong>independently proofed</strong>. The full record is public. No restating winners, no quietly dropping losers.</p>
     <h4>Getting bets on</h4>
-    <p>A <strong>large number of our selections are available in betting shops</strong> across multiple UK bookmakers — we're not reliant on any one book, and our bets are spread across different firms. Selections are usually available at more than one bookie, and we sometimes offer <strong>alternative bets from the same angle</strong> to give you options if you're restricted or prefer a different market. A small number of selections also have exchange angles for those who need them. And unlike racing, <strong>the price you see is almost always the price you'll get</strong> — bookmakers price these markets independently and for most of what we tip there's no liquid exchange market for them to follow. We do monitor this closely, and if subscriber numbers ever reached a point where we started seeing prices move, we'd restrict new sign-ups before we'd let the edges erode.</p>
+    <p>Most selections are available in <strong>betting shops</strong> across multiple UK bookmakers. We often give <strong>alternative bets from the same angle</strong> if you're restricted. Some selections have exchange angles. For most of what we tip, <strong>the price you see is the price you get</strong>.</p>
   </div>
 </div>
 
@@ -1179,15 +1211,15 @@ document.addEventListener("DOMContentLoaded", function () {
     <div class="proof-text">
       <span class="label">Independent verification</span>
       <h2>Fully transparent. Independently proofed.</h2>
-      <p>Every bet is recorded in full — the selection, the odds, the stake, and the result. Nothing is edited after the fact. We publish our full records which can be viewed at any time.</p>
-      <p>Since 8th January 2025, our results are being independently proofed by <strong>Smart Betting Club</strong>. The numbers you see are the numbers that happened.</p>
+      <p>Every bet is recorded: selection, odds, stake, result. Nothing edited after the fact. The full ledger is always available.</p>
+      <p>Since January 2026, our results are being independently proofed by <strong>Smart Betting Club</strong>. The numbers you see are the numbers that happened.</p>
       <a href="https://docs.google.com/spreadsheets/d/1dYBsATlGDVmFYmcb1vfOvM2jhqUfXE9TqmJ2BcM1xw4/edit?gid=0#gid=0" target="_blank" rel="noopener" class="btn btn-ghost proof-cta-desktop" style="margin-top:1.2rem;display:inline-block">View full records</a>
     </div>
     <div class="proof-badge">
       <div class="badge-inner">
         <div class="badge-title">Under proofing by</div>
         <div class="badge-name">Smart Betting Club</div>
-        <div class="badge-since">Since 8th January 2025</div>
+        <div class="badge-since">Since January 2026</div>
       </div>
     </div>
     <a href="https://docs.google.com/spreadsheets/d/1dYBsATlGDVmFYmcb1vfOvM2jhqUfXE9TqmJ2BcM1xw4/edit?gid=0#gid=0" target="_blank" rel="noopener" class="btn btn-ghost proof-cta-mobile" style="display:none;margin-top:0.5rem">View full records</a>
@@ -1209,53 +1241,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
 <div class="pricing">
   <div class="section-head">
-    <h2>Pricing</h2>
+    <h2>Try the full service</h2>
     <div class="section-rule"></div>
   </div>
 
-  <div class="price-grid" id="priceGrid">
-    <div class="price-block" id="plan-monthly" onclick="selectPlan('monthly')" style="cursor:pointer;">
-      <div class="price-type">Monthly</div>
-      <div class="price-num">£50</div>
-      <div class="price-detail">Per active month. Cancel any time.</div>
+  <div class="price-grid" style="grid-template-columns:1fr;max-width:520px">
+    <div class="price-block best">
+      <div class="best-tag">Two-week offer</div>
+      <div class="price-type">EdgeScout trial</div>
+      <div class="price-num">£10</div>
+      <div class="price-detail">Two weeks of full subscriber access: every tip via Telegram and every update.</div>
+      <div class="price-saving">See the service in action before making a bigger commitment.</div>
     </div>
-    <div class="price-block best selected" id="plan-annual" onclick="selectPlan('annual')" style="cursor:pointer;">
-      <div class="best-tag">Best value</div>
-      <div class="price-type">Annual</div>
-      <div class="price-num">£365</div>
-      <div class="price-detail">12 months, one payment.</div>
-      <div class="price-saving">↓ Save £185 vs monthly</div>
-    </div>
-  </div>
-
-  <div class="no-charge">
-    <strong>No charge during pre-season.</strong> Monthly subscribers aren't billed during the summer break. This season there's one free month, since we'll be covering the World Cup. In a standard year without a major tournament it would be two. We may still post occasional bets during pre-season, including antepost and on friendlies. We have even managed a 24/1 winner on a friendly match.
   </div>
 
   <div class="cta-row">
-    <a href="https://buy.stripe.com/7sY9AM1fJ1NN3yf2FrdIA03" class="btn" id="subscribeBtn">Subscribe now — £365/yr</a>
+    <a href="https://buy.stripe.com/4gM6oAbUngIHgl14NzdIA01" class="btn">Start your £10 trial</a>
   </div>
-
-  <style>
-    .price-block.selected { border-color: var(--accent); outline: 2px solid var(--accent); }
-    .price-block:not(.best).selected { border-color: var(--accent); outline: 2px solid var(--accent); }
-  </style>
-
-  <script>
-    var plans = {
-      monthly: { url: 'https://buy.stripe.com/14AaEQ5vZfED2ub1BndIA02', label: 'Subscribe now — £50/mo' },
-      annual:  { url: 'https://buy.stripe.com/7sY9AM1fJ1NN3yf2FrdIA03', label: 'Subscribe now — £365/yr' }
-    };
-    var currentPlan = 'annual';
-    function selectPlan(plan) {
-      currentPlan = plan;
-      document.getElementById('plan-monthly').classList.toggle('selected', plan === 'monthly');
-      document.getElementById('plan-annual').classList.toggle('selected', plan === 'annual');
-      var btn = document.getElementById('subscribeBtn');
-      btn.href = plans[plan].url;
-      btn.textContent = plans[plan].label;
-    }
-  </script>
 </div>
 
 
@@ -1267,7 +1269,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   <div class="faq-item">
     <button class="faq-q">How statistically significant are these results? <span class="faq-icon">+</span></button>
-    <div class="faq-a">Across 763 bets as of the 9th of March 2026, the results carry a p-value of 0.006. In plain terms, there is a 0.6% probability that a record like this is the result of luck alone. The conventional threshold for statistical significance is 5%, so we're well inside it.</div>
+    <div class="faq-a">Across 1680 bets in 2025/26, the sample is large enough that luck alone is an unlikely explanation for the full record. We publish the complete flat-stake ledger so you can judge the numbers yourself.</div>
   </div>
 
   <div class="faq-item">
@@ -1292,7 +1294,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   <div class="faq-item">
     <button class="faq-q">What does independent proofing mean? <span class="faq-icon">+</span></button>
-    <div class="faq-a">Since 8th January 2025, our results have been submitted to Smart Betting Club for independent verification. This means a third party is logging our bets and confirming the figures are accurate and aren't being manupulated. This is not an endorsement by SBC; it's a proofing arrangement.</div>
+    <div class="faq-a">Since January 2026, our results have been submitted to Smart Betting Club for independent verification. This is not an endorsement by SBC; it's a proofing arrangement.</div>
   </div>
 
   <div class="faq-item">
@@ -1302,7 +1304,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   <div class="faq-item">
     <button class="faq-q">What happens in pre-season? <span class="faq-icon">+</span></button>
-    <div class="faq-a">We don't charge during pre-season. In a standard year that's around two months, but this year it's one due to the World Cup, which we'll cover extensively. We will still find bets in pre-season, however, including antepost and on friendlies.</div>
+    <div class="faq-a">We don't charge monthly subscribers during pre-season, usually around two months. We may still post occasional bets when we find something worth tipping, including antepost and friendlies.</div>
   </div>
 
   <div class="faq-item">
@@ -1316,8 +1318,8 @@ document.addEventListener("DOMContentLoaded", function () {
   </div>
 
   <div class="faq-item">
-    <button class="faq-q">Does this cover club football only, or will you be covering the World Cup? <span class="faq-icon">+</span></button>
-    <div class="faq-a">We'll absolutely be covering the World Cup, and it's included in the subscription at no extra cost. Some of our best returns have come from international football, and we expect plenty of action during the tournament.</div>
+    <button class="faq-q">Does the service cover club football only? <span class="faq-icon">+</span></button>
+    <div class="faq-a">Club football is the core. International windows and major tournaments are included when we're active in those markets, at no extra fee.</div>
   </div>
 
   <div class="faq-item">
@@ -1357,8 +1359,8 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 
 <footer>
-  <span>© 2025 EdgeScout</span>
-  <span>Results logged from Oct 2025</span>
+  <span>© 2026 EdgeScout</span>
+  <span>2025/26 record: +297pts at 17.7% ROI</span>
   
 </footer>
 
@@ -1366,9 +1368,9 @@ document.addEventListener("DOMContentLoaded", function () {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script>
 window.addEventListener("load", function() {
-  const TOTAL_PTS = 220.91;
+  const TOTAL_PTS = 297.42;
   const BANK_PTS = 150;
-  const MONTHS = 6;
+  const MONTHS = 10;
 
   const stakeBtns = document.querySelectorAll('.stake-btn');
   const gbpCells = document.querySelectorAll('.month-gbp[data-pts]');
