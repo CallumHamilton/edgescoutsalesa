@@ -838,6 +838,7 @@
   /* TRIAL BREAK SECTION */
   .trial-break-section {
     border-top: 2px solid var(--accent);
+    border-right: 2px solid var(--accent);
     border-bottom: 2px solid var(--accent);
     background: rgba(232,184,58,0.13);
     position: relative;
@@ -1159,7 +1160,7 @@ document.addEventListener("DOMContentLoaded", function () {
   <div class="months-note">Flat staking to the selected amount per point. GBP figures are illustrative. Bookmaker restrictions may apply at higher stakes.</div>
 </div>
 
-<div class="chart-section" style="display:none">
+<div class="chart-section">
   <div class="section-head">
     <h2>Cumulative P&amp;L</h2>
     <div class="section-rule"></div>
@@ -1167,7 +1168,7 @@ document.addEventListener("DOMContentLoaded", function () {
   <div class="chart-wrap">
     <canvas id="pnlChart"></canvas>
   </div>
-  <div class="chart-note">Points to flat stakes, Oct 2025 – Mar 2026. Each point represents end-of-day cumulative P&amp;L.</div>
+  <div class="chart-note"><strong>How we did last season:</strong> points to flat stakes, Oct 2025 – Jul 2026. Club football, World Cup match bets and anteposts (dated to settlement). Hover or tap the highlighted points to explore notable winners.</div>
 </div>
 
 <div class="trial-break-section">
@@ -1258,6 +1259,53 @@ document.addEventListener("DOMContentLoaded", function () {
   <div class="cta-row">
     <a href="https://buy.stripe.com/4gM6oAbUngIHgl14NzdIA01" class="btn">Start your £10 trial</a>
   </div>
+
+  <div class="section-head" style="margin-top:4rem">
+    <h2>Or join now</h2>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="price-grid" id="priceGrid">
+    <div class="price-block" id="plan-monthly" onclick="selectPlan('monthly')" style="cursor:pointer;">
+      <div class="price-type">Monthly</div>
+      <div class="price-num">£50</div>
+      <div class="price-detail">Per active month. Cancel any time.</div>
+    </div>
+    <div class="price-block best selected" id="plan-annual" onclick="selectPlan('annual')" style="cursor:pointer;">
+      <div class="best-tag">Best value</div>
+      <div class="price-type">Annual</div>
+      <div class="price-num">£365</div>
+      <div class="price-detail">12 months, one payment.</div>
+      <div class="price-saving">↓ Save £185 vs monthly</div>
+    </div>
+  </div>
+
+  <div class="no-charge">
+    <strong>No charge during pre-season.</strong> Monthly subscribers aren't billed over the summer break, usually around two months in a standard year.
+  </div>
+
+  <div class="cta-row">
+    <a href="https://buy.stripe.com/7sY9AM1fJ1NN3yf2FrdIA03" class="btn" id="subscribeBtn">Subscribe now — £365/yr</a>
+  </div>
+
+  <style>
+    .price-block.selected { border-color: var(--accent); outline: 2px solid var(--accent); }
+    .price-block:not(.best).selected { border-color: var(--accent); outline: 2px solid var(--accent); }
+  </style>
+
+  <script>
+    var plans = {
+      monthly: { url: 'https://buy.stripe.com/14AaEQ5vZfED2ub1BndIA02', label: 'Subscribe now — £50/mo' },
+      annual:  { url: 'https://buy.stripe.com/7sY9AM1fJ1NN3yf2FrdIA03', label: 'Subscribe now — £365/yr' }
+    };
+    function selectPlan(plan) {
+      document.getElementById('plan-monthly').classList.toggle('selected', plan === 'monthly');
+      document.getElementById('plan-annual').classList.toggle('selected', plan === 'annual');
+      var btn = document.getElementById('subscribeBtn');
+      btn.href = plans[plan].url;
+      btn.textContent = plans[plan].label;
+    }
+  </script>
 </div>
 
 
@@ -1410,20 +1458,45 @@ window.addEventListener("load", function() {
   // No testimonial scroll — single card layout
 
   // P&L Chart
-  const chartDates = ["2025-10-01", "2025-10-06", "2025-10-09", "2025-10-10", "2025-10-12", "2025-10-13", "2025-10-14", "2025-10-15", "2025-10-18", "2025-10-19", "2025-10-20", "2025-10-21", "2025-10-22", "2025-10-23", "2025-10-24", "2025-10-25", "2025-10-26", "2025-10-27", "2025-10-28", "2025-10-29", "2025-10-30", "2025-10-31", "2025-11-01", "2025-11-02", "2025-11-03", "2025-11-04", "2025-11-05", "2025-11-06", "2025-11-07", "2025-11-08", "2025-11-09", "2025-11-10", "2025-11-12", "2025-11-14", "2025-11-15", "2025-11-16", "2025-11-17", "2025-11-20", "2025-11-21", "2025-11-22", "2025-11-23", "2025-11-24", "2025-11-25", "2025-11-26", "2025-11-27", "2025-11-28", "2025-11-29", "2025-11-30", "2025-12-02", "2025-12-03", "2025-12-04", "2025-12-06", "2025-12-07", "2025-12-08", "2025-12-09", "2025-12-11", "2025-12-12", "2025-12-13", "2025-12-14", "2025-12-15", "2025-12-17", "2025-12-18", "2025-12-19", "2025-12-20", "2025-12-21", "2025-12-23", "2025-12-24", "2025-12-26", "2025-12-27", "2025-12-28", "2025-12-29", "2025-12-30", "2026-01-01", "2026-01-02", "2026-01-03", "2026-01-04", "2026-01-06", "2026-01-07", "2026-01-08", "2026-01-09", "2026-01-10", "2026-01-11", "2026-01-12", "2026-01-13", "2026-01-14", "2026-01-15", "2026-01-16", "2026-01-17", "2026-01-18", "2026-01-19", "2026-01-20", "2026-01-21", "2026-01-22", "2026-01-23", "2026-01-24", "2026-01-25", "2026-01-26", "2026-01-27", "2026-01-28", "2026-01-29", "2026-01-30", "2026-01-31", "2026-02-01", "2026-02-02", "2026-02-03", "2026-02-04", "2026-02-06", "2026-02-07", "2026-02-08", "2026-02-09", "2026-02-10", "2026-02-11", "2026-02-12", "2026-02-14", "2026-02-15", "2026-02-16", "2026-02-17", "2026-02-18", "2026-02-19", "2026-02-20", "2026-02-21", "2026-02-22", "2026-02-23", "2026-02-24", "2026-02-25", "2026-02-26", "2026-02-27", "2026-02-28", "2026-03-01", "2026-03-02", "2026-03-03", "2026-03-04", "2026-03-05", "2026-03-06", "2026-03-07", "2026-03-08"];
-  const chartPnl = [0.0, 30.0, 33.5, 29.5, 27.5, 29.95, 28.95, 27.95, 22.95, 27.35, 26.35, 24.35, 20.35, 17.35, 16.55, 17.92, 13.92, 12.92, 17.92, 14.92, 13.92, 10.92, 10.22, 13.72, 19.22, 15.22, 14.72, 17.07, 16.07, 14.07, 29.4, 28.4, 25.4, 25.8, 31.6, 32.3, 35.85, 37.35, 33.35, 33.85, 32.35, 41.35, 57.55, 56.55, 63.05, 61.05, 68.55, 63.55, 71.05, 71.55, 75.55, 63.55, 57.55, 60.15, 56.35, 62.15, 60.15, 71.4, 70.4, 75.4, 96.9, 98.5, 97.5, 98.5, 96.5, 105.1, 101.1, 108.6, 120.6, 121.93, 115.93, 109.93, 104.93, 103.93, 103.43, 101.33, 102.08, 102.08, 101.08, 97.08, 103.28, 118.58, 121.08, 119.08, 118.08, 115.08, 112.08, 131.78, 123.78, 125.28, 127.68, 122.68, 123.68, 122.68, 128.08, 145.08, 143.08, 141.08, 130.08, 123.08, 119.08, 111.68, 104.68, 102.68, 106.38, 96.38, 103.63, 117.43, 117.33, 119.33, 113.33, 111.13, 106.13, 106.63, 119.03, 122.03, 120.13, 119.13, 120.33, 117.33, 163.63, 169.71, 168.71, 164.61, 163.31, 156.31, 161.31, 178.01, 186.51, 188.71, 189.31, 193.31, 198.31, 198.31, 196.11, 220.91];
-
-  // Notable bets: {dateIndex, label, detail, pnl}
-  const notableBets = [
-    { date: "2025-10-06", label: "23/1 winner", detail: "New Caledonia handicap -1\nGibraltar vs New Caledonia · 06-10-2025", pnl: "+23pts" },
-    { date: "2025-11-09", label: "Four card winners", detail: "Five cards tipped, four winners at 4.33–6.0\n09-11-2025 · Inter/Lazio, Mirassol/Palmeiras", pnl: "+17.33pts" },
-    { date: "2025-12-17", label: "16/1 winner", detail: "Anytime goalscorer – Krisztian Keresztes\nDundee United vs Celtic · 17-12-2025", pnl: "+17pts" },
-    { date: "2026-01-17", label: "12/1 winner", detail: "Supersub anytime goalscorer – Joseph Olowu\nStockport vs Rotherham · 17-01-2026", pnl: "+12pts" },
-    { date: "2026-02-07", label: "16/1 winner", detail: "Mathias Jensen over 2.5 shots\nNewcastle vs Brentford · 07-02-2026", pnl: "+16pts" },
-    { date: "2026-02-15", label: "18/1 winner", detail: "Kilmarnock 2+ goals & 6+ corners\nKilmarnock vs Celtic · 15-02-2026", pnl: "+18pts" },
-    { date: "2026-02-21", label: "54/1 winner", detail: "Motherwell–St Mirren Bet Builder\nSt Mirren vs Motherwell · 21-02-2026", pnl: "+54pts" },
-    { date: "2026-03-08", label: "Four card winners", detail: "Four cards tipped, four winners at 4.8–7.5\n08-03-2026 · Fulham, Rangers/Celtic, Bologna, Milan", pnl: "+18.8pts" }
-  ];
+  const chartDates = ["2025-10-06", "2025-10-09", "2025-10-10", "2025-10-12", "2025-10-13", "2025-10-14", "2025-10-15", "2025-10-18", "2025-10-19", "2025-10-20", "2025-10-21", "2025-10-22", "2025-10-23", "2025-10-24", "2025-10-25", "2025-10-26", "2025-10-27", "2025-10-28", "2025-10-29", "2025-10-30", "2025-10-31", "2025-11-01", "2025-11-02", "2025-11-03", "2025-11-04", "2025-11-05", "2025-11-06", "2025-11-07", "2025-11-08", "2025-11-09", "2025-11-10", "2025-11-12", "2025-11-14", "2025-11-15", "2025-11-16", "2025-11-17", "2025-11-20", "2025-11-21", "2025-11-22", "2025-11-23", "2025-11-24", "2025-11-25", "2025-11-26", "2025-11-27", "2025-11-28", "2025-11-29", "2025-11-30", "2025-12-02", "2025-12-03", "2025-12-04", "2025-12-06", "2025-12-07", "2025-12-08", "2025-12-09", "2025-12-10", "2025-12-11", "2025-12-12", "2025-12-13", "2025-12-14", "2025-12-15", "2025-12-17", "2025-12-18", "2025-12-19", "2025-12-20", "2025-12-21", "2025-12-23", "2025-12-24", "2025-12-26", "2025-12-27", "2025-12-28", "2025-12-29", "2025-12-30", "2026-01-01", "2026-01-02", "2026-01-03", "2026-01-04", "2026-01-06", "2026-01-07", "2026-01-08", "2026-01-09", "2026-01-10", "2026-01-11", "2026-01-12", "2026-01-13", "2026-01-14", "2026-01-15", "2026-01-16", "2026-01-17", "2026-01-18", "2026-01-19", "2026-01-20", "2026-01-21", "2026-01-22", "2026-01-23", "2026-01-24", "2026-01-25", "2026-01-26", "2026-01-27", "2026-01-28", "2026-01-29", "2026-01-30", "2026-01-31", "2026-02-01", "2026-02-02", "2026-02-03", "2026-02-04", "2026-02-06", "2026-02-07", "2026-02-08", "2026-02-09", "2026-02-10", "2026-02-11", "2026-02-12", "2026-02-14", "2026-02-15", "2026-02-16", "2026-02-17", "2026-02-18", "2026-02-19", "2026-02-20", "2026-02-21", "2026-02-22", "2026-02-23", "2026-02-24", "2026-02-25", "2026-02-26", "2026-02-27", "2026-02-28", "2026-03-01", "2026-03-02", "2026-03-03", "2026-03-04", "2026-03-05", "2026-03-06", "2026-03-07", "2026-03-08", "2026-03-09", "2026-03-10", "2026-03-11", "2026-03-12", "2026-03-13", "2026-03-14", "2026-03-15", "2026-03-16", "2026-03-17", "2026-03-18", "2026-03-19", "2026-03-20", "2026-03-21", "2026-03-22", "2026-03-24", "2026-03-25", "2026-03-26", "2026-03-27", "2026-03-28", "2026-03-29", "2026-03-31", "2026-04-02", "2026-04-03", "2026-04-04", "2026-04-05", "2026-04-06", "2026-04-07", "2026-04-08", "2026-04-09", "2026-04-10", "2026-04-11", "2026-04-12", "2026-04-13", "2026-04-14", "2026-04-15", "2026-04-16", "2026-04-17", "2026-04-18", "2026-04-19", "2026-04-20", "2026-04-21", "2026-04-22", "2026-04-23", "2026-04-24", "2026-04-25", "2026-04-26", "2026-04-27", "2026-04-28", "2026-04-29", "2026-04-30", "2026-05-01", "2026-05-02", "2026-05-03", "2026-05-04", "2026-05-05", "2026-05-06", "2026-05-07", "2026-05-08", "2026-05-09", "2026-05-10", "2026-05-11", "2026-05-12", "2026-05-13", "2026-05-14", "2026-05-15", "2026-05-16", "2026-05-17", "2026-05-18", "2026-05-19", "2026-05-20", "2026-05-21", "2026-05-22", "2026-05-23", "2026-05-24", "2026-05-27", "2026-05-30", "2026-05-31", "2026-06-01", "2026-06-03", "2026-06-05", "2026-06-06", "2026-06-11", "2026-06-12", "2026-06-13", "2026-06-14", "2026-06-15", "2026-06-16", "2026-06-17", "2026-06-18", "2026-06-19", "2026-06-20", "2026-06-21", "2026-06-22", "2026-06-23", "2026-06-24", "2026-06-25", "2026-06-26", "2026-06-27", "2026-06-28", "2026-06-29", "2026-06-30", "2026-07-01", "2026-07-02", "2026-07-03", "2026-07-04", "2026-07-05", "2026-07-06", "2026-07-07", "2026-07-09", "2026-07-10", "2026-07-11", "2026-07-14", "2026-07-15", "2026-07-18", "2026-07-19"];
+  const chartPnl = [30.0, 33.5, 29.5, 27.5, 29.95, 28.95, 27.95, 22.95, 27.35, 26.35, 24.35, 20.35, 17.35, 16.55, 17.92, 13.92, 12.92, 17.92, 14.92, 13.92, 10.92, 8.52, 18.22, 19.22, 15.22, 14.72, 17.07, 16.07, 14.07, 29.4, 28.4, 25.4, 25.8, 31.6, 32.3, 35.85, 37.35, 33.35, 33.85, 32.35, 40.35, 57.55, 56.55, 63.05, 61.05, 68.55, 63.55, 71.05, 71.55, 75.55, 63.55, 57.55, 60.15, 56.35, 58.35, 62.15, 60.15, 71.4, 70.4, 75.4, 96.9, 98.5, 97.5, 98.5, 96.5, 105.1, 101.1, 108.6, 120.6, 121.93, 115.93, 109.93, 104.93, 103.93, 103.43, 101.33, 102.08, 102.08, 101.08, 97.08, 103.28, 118.58, 121.08, 119.08, 118.08, 115.08, 112.08, 131.78, 123.78, 125.28, 127.68, 122.68, 123.68, 122.68, 128.08, 145.08, 143.08, 141.08, 130.08, 123.08, 119.08, 111.68, 104.68, 102.68, 106.38, 96.38, 103.63, 117.43, 117.33, 119.33, 113.33, 111.13, 106.13, 106.63, 119.03, 122.03, 120.13, 119.13, 122.38, 119.38, 165.68, 171.76, 170.76, 166.66, 165.36, 158.36, 163.36, 180.06, 188.56, 191.76, 191.36, 195.36, 200.36, 200.36, 194.66, 219.46, 215.46, 222.26, 211.02, 226.56, 226.56, 221.36, 223.86, 226.36, 222.86, 230.66, 223.26, 223.01, 228.51, 238.01, 237.01, 236.01, 242.76, 236.76, 231.76, 228.76, 239.01, 243.51, 238.31, 237.31, 226.31, 214.81, 214.16, 209.56, 200.56, 197.06, 202.81, 219.57, 237.07, 259.17, 260.17, 251.17, 251.42, 234.62, 245.37, 241.37, 249.37, 254.37, 251.37, 271.85, 260.85, 260.35, 276.85, 274.65, 271.65, 267.95, 267.45, 258.95, 253.95, 246.95, 243.95, 251.2, 252.2, 255.2, 253.8, 251.8, 246.8, 250.0, 257.7, 255.7, 253.7, 247.9, 242.65, 248.15, 244.15, 240.15, 238.15, 237.15, 232.15, 232.98, 231.98, 234.63, 232.63, 237.63, 244.63, 242.63, 247.13, 254.79, 250.79, 248.09, 256.09, 251.09, 244.09, 243.29, 247.75, 251.45, 250.54, 244.89, 239.89, 232.71, 230.19, 236.09, 251.09, 244.09, 258.09, 269.02, 266.66, 269.66, 268.66, 264.66, 261.66, 260.66, 259.84, 253.84, 250.84, 247.84, 247.74, 246.24, 249.64, 258.14, 297.42];
+  const notableBets = {
+  "2025-10-06": {
+    "label": "23/1 winner",
+    "detail": "New Caledonia handicap -1\nGibraltar vs New Caledonia \u00b7 06-10-2025",
+    "pnl": "+23pts"
+  },
+  "2025-12-17": {
+    "label": "16/1 winner",
+    "detail": "Anytime goalscorer \u2013 Krisztian Keresztes\nDundee United vs Celtic \u00b7 17-12-2025",
+    "pnl": "+17pts"
+  },
+  "2026-02-15": {
+    "label": "18/1 winner",
+    "detail": "Kilmarnock 2+ goals & 6+ corners\nKilmarnock vs Celtic \u00b7 15-02-2026",
+    "pnl": "+18pts"
+  },
+  "2026-02-21": {
+    "label": "54/1 winner",
+    "detail": "Motherwell\u2013St Mirren Bet Builder\nSt Mirren vs Motherwell \u00b7 21-02-2026",
+    "pnl": "+54pts"
+  },
+  "2026-04-14": {
+    "label": "Big bet winner",
+    "detail": "Torres/Kvaratskhelia SOTs ladder\n14-04-2026",
+    "pnl": "+25.6pts"
+  },
+  "2026-06-28": {
+    "label": "18/1 winner",
+    "detail": "Over 0.5 SOT from outside the box - Stephen Eustaqio\nCanada vs South Africa · 28-06-2026",
+    "pnl": "+18pts"
+  },
+  "2026-07-19": {
+    "label": "35/1 antepost",
+    "detail": "Spain/Argentina forecast (Spain beat Argentina in the final)\nSettled · 19-07-2026",
+    "pnl": "+40pts"
+  }
+};
 
   const accentGold = '#e8b83a';
   const accentGreen = '#3de88a';
@@ -1432,21 +1505,12 @@ window.addEventListener("load", function() {
   gradient.addColorStop(0, 'rgba(232,200,74,0.18)');
   gradient.addColorStop(1, 'rgba(232,200,74,0)');
 
-  // Map notable bet dates to their data index
-  // Format YYYY-MM-DD -> DD-MM-YYYY
-  function fmtDate(d) {
-    const [y, m, day] = d.split('-');
-    return `${day}-${m}-${y}`;
-  }
+  function fmtDate(d) { const parts = d.split('-'); return parts[2] + '-' + parts[1] + '-' + parts[0]; }
 
-  const notableByDate = {};
-  notableBets.forEach(b => { notableByDate[b.date] = b; });
-
-  // Custom point radii — big for notable dates, 0 otherwise
-  const pointRadii = chartDates.map(d => notableByDate[d] ? 7 : 0);
-  const pointHoverRadii = chartDates.map(d => notableByDate[d] ? 9 : 4);
-  const pointBgColors = chartDates.map(d => notableByDate[d] ? accentGreen : accentGold);
-  const pointBorderColors = chartDates.map(d => notableByDate[d] ? accentGreen : accentGold);
+  const pointRadii      = chartDates.map(d => notableBets[d] ? 7 : 0);
+  const pointHoverRadii = chartDates.map(d => notableBets[d] ? 9 : 4);
+  const pointBgColors   = chartDates.map(d => notableBets[d] ? accentGreen : accentGold);
+  const pointBorderColors = chartDates.map(d => notableBets[d] ? accentGreen : accentGold);
 
   const chart = new Chart(ctx, {
     type: 'line',
@@ -1481,44 +1545,38 @@ window.addEventListener("load", function() {
           titleFont: { family: 'Barlow', size: 11 },
           bodyFont: { family: 'Barlow', size: 14, weight: '700' },
           callbacks: {
-            title: ctx => fmtDate(ctx[0].label),
-            label: ctx => {
-              const notable = notableByDate[ctx.label];
-              if (notable) return `${ctx.parsed.y.toFixed(2)}pts  ★ ${notable.label}`;
-              return `${ctx.parsed.y.toFixed(2)}pts`;
+            title: function(ctx) { return fmtDate(ctx[0].label); },
+            label: function(ctx) {
+              const notable = notableBets[ctx.label];
+              if (notable) return ctx.parsed.y.toFixed(2) + 'pts  ★ ' + notable.label;
+              return ctx.parsed.y.toFixed(2) + 'pts';
             },
-            afterLabel: ctx => {
-              const notable = notableByDate[ctx.label];
-              return notable ? notable.detail : null;
-            }
-          },
-          afterBody: () => null
+            afterLabel: function(ctx) { const n = notableBets[ctx.label]; return n ? n.detail : null; }
+          }
         }
       },
       scales: {
         x: {
-          ticks: { color: '#555', font: { family: 'Barlow', size: 10 }, maxTicksLimit: 8, maxRotation: 0, callback: (v) => typeof v === 'number' ? fmtDate(chartDates[v] || '') : '' },
+          ticks: { color: '#555', font: { family: 'Barlow', size: 10 }, maxTicksLimit: 8, maxRotation: 0, callback: function(v) { return typeof v === 'number' ? fmtDate(chartDates[v] || '') : ''; } },
           grid: { color: 'rgba(255,255,255,0.04)' },
           border: { color: '#333' }
         },
         y: {
-          ticks: { color: '#555', font: { family: 'Barlow', size: 10 }, callback: v => `${v}pts` },
+          ticks: { color: '#555', font: { family: 'Barlow', size: 10 }, callback: function(v) { return v + 'pts'; } },
           grid: { color: 'rgba(255,255,255,0.04)' },
           border: { color: '#333' }
         }
       },
-      onClick: (e, elements) => {
+      onClick: function(e, elements) {
         if (!elements.length) return;
-        const idx = elements[0].index;
-        const date = chartDates[idx];
-        const notable = notableByDate[date];
+        const date = chartDates[elements[0].index];
+        const notable = notableBets[date];
         if (!notable) return;
         showNotableCard(notable, e.native.clientX, e.native.clientY);
       }
     }
   });
 
-  // Notable bet card
   const card = document.createElement('div');
   card.id = 'notable-card';
   card.style.cssText = 'position:fixed;background:#1a1a1a;border:1px solid #3de88a;padding:1.2rem 1.4rem;font-family:Barlow,sans-serif;font-size:0.85rem;color:#d8d8d4;max-width:260px;z-index:1000;display:none;line-height:1.6;box-shadow:0 4px 24px rgba(0,0,0,0.5);box-sizing:border-box';
@@ -1526,37 +1584,28 @@ window.addEventListener("load", function() {
 
   function showNotableCard(bet, x, y) {
     const lines = bet.detail.split('\n');
-    const accentCol = card.style.borderColor || '#3de88a';
-    card.innerHTML = `
-      <div style="font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:#3de88a;margin-bottom:0.5rem">★ ${bet.label}</div>
-      <div style="font-weight:700;color:#fff;margin-bottom:0.3rem">${lines[0]}</div>
-      <div style="color:#888;font-size:0.78rem;margin-bottom:0.8rem">${lines[1] || ''}</div>
-      <div style="font-size:1.3rem;font-weight:800;color:#3de88a">${bet.pnl}</div>
-      <div style="margin-top:0.8rem;font-size:0.7rem;color:#555;cursor:pointer" onclick="document.getElementById('notable-card').style.display='none'">✕ close</div>`;
+    card.innerHTML =
+      '<div style="font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:#3de88a;margin-bottom:0.5rem">★ ' + bet.label + '</div>' +
+      '<div style="font-weight:700;color:#fff;margin-bottom:0.3rem">' + lines[0] + '</div>' +
+      '<div style="color:#888;font-size:0.78rem;margin-bottom:0.8rem">' + (lines[1] || '') + '</div>' +
+      '<div style="font-size:1.3rem;font-weight:800;color:#3de88a">' + bet.pnl + '</div>' +
+      '<div style="margin-top:0.8rem;font-size:0.7rem;color:#555;cursor:pointer" onclick="document.getElementById(\'notable-card\').style.display=\'none\'">✕ close</div>';
     const vw = window.innerWidth, vh = window.innerHeight;
-    const isMobile = vw < 600;
-    if (isMobile) {
+    if (vw < 600) {
       const w = Math.min(vw - 24, 320);
-      card.style.width = w + 'px';
-      card.style.maxWidth = w + 'px';
-      card.style.left = Math.round((vw - w) / 2) + 'px';
-      card.style.top = Math.round(vh * 0.35) + 'px';
+      card.style.width = w + 'px'; card.style.maxWidth = w + 'px';
+      card.style.left = Math.round((vw - w) / 2) + 'px'; card.style.top = Math.round(vh * 0.35) + 'px';
     } else {
-      card.style.width = '';
-      card.style.maxWidth = '260px';
       let left = x + 16, top = y - 20;
       if (left + 280 > vw) left = x - 280;
       if (top + 180 > vh) top = vh - 190;
-      card.style.left = left + 'px';
-      card.style.top = top + 'px';
+      card.style.left = left + 'px'; card.style.top = top + 'px';
     }
     card.style.display = 'block';
   }
 
-  document.addEventListener('click', e => {
-    if (!e.target.closest('#notable-card') && !e.target.closest('canvas')) {
-      card.style.display = 'none';
-    }
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('#notable-card') && !e.target.closest('canvas')) card.style.display = 'none';
   });
 
   // FAQ accordion
