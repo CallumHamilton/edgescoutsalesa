@@ -933,6 +933,29 @@
     cursor: pointer;
   }
 
+  .trial-waitlist {
+    display: none;
+    padding: 3.5rem 3rem;
+    border-top: 2px solid var(--accent);
+    border-bottom: 2px solid var(--accent);
+    background: rgba(232,184,58,0.08);
+  }
+  .trial-waitlist.is-visible { display: block; }
+  .trial-waitlist-inner { max-width: 680px; margin: 0 auto; }
+  .trial-waitlist h2 { margin-bottom: 0.7rem; }
+  .trial-waitlist p { color: #d0d0cc; margin-bottom: 1.2rem; }
+  .trial-waitlist-form { display: flex; gap: 0.7rem; }
+  .trial-waitlist-form input {
+    flex: 1;
+    min-width: 0;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    padding: 0.85rem 1rem;
+    font: inherit;
+  }
+  .trial-waitlist-message { min-height: 1.5rem; margin-top: 0.8rem; color: var(--accent2); }
+
   /* URGENCY ELEMENTS */
   .urgency-tag {
     display: inline-flex;
@@ -1009,6 +1032,8 @@
     .trial-break-inner { grid-template-columns: 1fr; gap: 2rem; }
     .trial-price-block { text-align: left; }
     .trial-price-block .btn { max-width: 200px; }
+    .trial-waitlist { padding: 2.5rem 1.5rem; }
+    .trial-waitlist-form { flex-direction: column; }
   }
 
 </style>
@@ -1025,31 +1050,31 @@ document.addEventListener("DOMContentLoaded", function () {
         return cookie ? decodeURIComponent(cookie.split("=").slice(1).join("=")) : "";
     }
 
-    document.querySelectorAll('a[href^="https://buy.stripe.com/"]').forEach(function (link) {
+    document.querySelectorAll("a[data-trial-cta]").forEach(function (link) {
         link.addEventListener("click", function (event) {
-            var originalUrl = link.getAttribute("href").split("?")[0];
             var affiliateVisit = new URLSearchParams(window.location.search).has("via");
             var started = Date.now();
             event.preventDefault();
 
-            function continueToStripe() {
+            function continueToTelegram() {
                 var referral = referralId();
                 if (referral) {
-                    window.location.href = originalUrl + "?client_reference_id=" + encodeURIComponent(referral);
+                    window.location.href = "https://t.me/EdgeScoutAdminBot?start=" +
+                        encodeURIComponent("t_" + referral);
                     return;
                 }
                 if (!affiliateVisit) {
-                    window.location.href = originalUrl;
+                    window.location.href = "https://t.me/EdgeScoutAdminBot?start=trial";
                     return;
                 }
                 if (Date.now() - started < 4000) {
-                    window.setTimeout(continueToStripe, 100);
+                    window.setTimeout(continueToTelegram, 100);
                     return;
                 }
                 link.textContent = "Affiliate tracking did not load — try again";
             }
 
-            continueToStripe();
+            continueToTelegram();
         });
     });
 });
@@ -1064,19 +1089,19 @@ document.addEventListener("DOMContentLoaded", function () {
   <div class="header-stat">2025/26 record: <strong>+297pts / 17.7% ROI</strong></div>
 </header>
 
-<div class="trial-banner">
+<div class="trial-banner" data-trial-open>
   <div>
     <div class="trial-banner-text"><strong>Try EdgeScout for £10.</strong> Two weeks of full access.</div>
-    <div class="trial-banner-sub">Every tip, every update, everything included.</div>
+    <div class="trial-banner-sub">£10 today, then £50/month after 14 days. Cancel before renewal.</div>
   </div>
-  <a href="https://buy.stripe.com/4gM6oAbUngIHgl14NzdIA01" class="btn-trial">Start your trial →</a>
+  <a href="https://t.me/EdgeScoutAdminBot?start=trial" class="btn-trial" data-trial-cta>Start your trial →</a>
 </div>
 
 <div class="hero">
   <h1>Find the edge.<br><span class="highlight">Back the edge.</span></h1>
   <p class="hero-body">EdgeScout finds <strong>high-edge opportunities in soft markets</strong>, posts when the value is real, and records everything publicly.</p>
-  <p class="hero-body" style="margin-top:1rem">Last season returned <strong>297 points at 17.7% ROI</strong> across club football and the World Cup. Try the complete service for two weeks for £10.</p>
-  <a href="https://buy.stripe.com/4gM6oAbUngIHgl14NzdIA01" class="btn" style="margin-top:1.5rem">Get two weeks for £10</a>
+  <p class="hero-body" style="margin-top:1rem">Last season returned <strong>297 points at 17.7% ROI</strong> across club football and the World Cup. Try the complete service for two weeks for £10, then continue at £50/month unless you cancel.</p>
+  <a href="https://t.me/EdgeScoutAdminBot?start=trial" class="btn" data-trial-cta data-trial-open style="margin-top:1.5rem">Get two weeks for £10</a>
   <div class="hero-deco">
     <svg width="280" height="280" viewBox="0 0 150 150" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="75" cy="75" r="65" stroke="#e8b83a" stroke-opacity="0.18" stroke-width="1"/>
@@ -1188,17 +1213,17 @@ document.addEventListener("DOMContentLoaded", function () {
   <div class="chart-note"><strong>How we did last season:</strong> points to flat stakes, Oct 2025 – Jul 2026. Club football, World Cup match bets and anteposts (dated to settlement). Hover or tap the highlighted points to explore notable winners.</div>
 </div>
 
-<div class="trial-break-section">
+<div class="trial-break-section" data-trial-open>
   <div class="trial-break-inner">
     <div>
       <span class="trial-break-eyebrow">Full access · low commitment</span>
       <h3>See exactly what we do.<br><span>For £10.</span></h3>
-      <p>Get every tip via Telegram and every subscriber update for two full weeks. Judge the service on the selections you actually receive.</p>
+      <p>Get every tip via Telegram and every subscriber update for two full weeks. Pay £10 today, then continue at £50/month unless you cancel before the first renewal.</p>
     </div>
     <div class="trial-price-block">
       <div class="trial-price-num"><sup>£</sup>10</div>
       <div class="trial-price-sub">Two weeks · full access</div>
-      <a href="https://buy.stripe.com/4gM6oAbUngIHgl14NzdIA01" class="btn">Start your trial</a>
+      <a href="https://t.me/EdgeScoutAdminBot?start=trial" class="btn" data-trial-cta>Start your trial</a>
     </div>
   </div>
 </div>
@@ -1247,7 +1272,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 <div class="testimonial-section">
-  <div class="section-head">
+  <div class="section-head" data-trial-open>
     <h2>What subscribers say</h2>
     <div class="section-rule"></div>
   </div>
@@ -1263,18 +1288,31 @@ document.addEventListener("DOMContentLoaded", function () {
     <div class="section-rule"></div>
   </div>
 
-  <div class="price-grid" style="grid-template-columns:1fr;max-width:520px">
+  <div class="price-grid" data-trial-open style="grid-template-columns:1fr;max-width:520px">
     <div class="price-block best">
       <div class="best-tag">Two-week offer</div>
       <div class="price-type">EdgeScout trial</div>
       <div class="price-num">£10</div>
       <div class="price-detail">Two weeks of full subscriber access: every tip via Telegram and every update.</div>
-      <div class="price-saving">See the service in action before making a bigger commitment.</div>
+      <div class="price-saving">£10 today, then £50/month after 14 days. Cancel before renewal.</div>
     </div>
   </div>
 
-  <div class="cta-row">
-    <a href="https://buy.stripe.com/4gM6oAbUngIHgl14NzdIA01" class="btn">Start your £10 trial</a>
+  <div class="cta-row" data-trial-open>
+    <a href="https://t.me/EdgeScoutAdminBot?start=trial" class="btn" data-trial-cta>Start your £10 trial</a>
+  </div>
+
+  <div class="trial-waitlist" id="trial-waitlist">
+    <div class="trial-waitlist-inner">
+      <span class="label">Trial places currently full</span>
+      <h2>Join the waiting list</h2>
+      <p>Leave your email and we'll contact you when the next £10 two-week places open.</p>
+      <form class="trial-waitlist-form" id="trialWaitlistForm">
+        <input type="email" name="email" required autocomplete="email" placeholder="you@example.com" aria-label="Email address">
+        <button class="btn" type="submit">Notify me</button>
+      </form>
+      <div class="trial-waitlist-message" id="trialWaitlistMessage" role="status"></div>
+    </div>
   </div>
 
   <div class="section-head" style="margin-top:4rem">
@@ -1367,6 +1405,67 @@ document.addEventListener("DOMContentLoaded", function () {
 
       continueToTelegram();
     });
+  </script>
+
+  <script>
+    (function () {
+      var apiBase = 'https://edgescout.onrender.com';
+      var waitlist = document.getElementById('trial-waitlist');
+      var form = document.getElementById('trialWaitlistForm');
+      var message = document.getElementById('trialWaitlistMessage');
+
+      function referralId() {
+        var value = (window.promotekit_referral || '').toString().trim();
+        if (value) return value;
+        var cookie = document.cookie.split('; ').find(function (item) {
+          return item.indexOf('promotekit_referral=') === 0;
+        });
+        return cookie ? decodeURIComponent(cookie.split('=').slice(1).join('=')) : '';
+      }
+
+      function setTrialOpen(isOpen) {
+        document.querySelectorAll('[data-trial-open]').forEach(function (element) {
+          element.hidden = !isOpen;
+        });
+        waitlist.classList.toggle('is-visible', !isOpen);
+      }
+
+      // Fail closed: if availability cannot be confirmed, collect a waitlist email.
+      fetch(apiBase + '/trial/status')
+        .then(function (response) {
+          if (!response.ok) throw new Error('status unavailable');
+          return response.json();
+        })
+        .then(function (status) { setTrialOpen(Boolean(status.is_open)); })
+        .catch(function () { setTrialOpen(false); });
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        var email = form.elements.email.value.trim();
+        message.textContent = 'Adding you…';
+        fetch(apiBase + '/trial/waitlist', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: email,
+            promotekit_referral: referralId()
+          })
+        })
+          .then(function (response) {
+            return response.json().then(function (body) {
+              if (!response.ok) throw new Error(body.error || 'Unable to join');
+              return body;
+            });
+          })
+          .then(function (body) {
+            message.textContent = body.message;
+            form.reset();
+          })
+          .catch(function (error) {
+            message.textContent = error.message + '. Email edgescout@edgescout.co.uk for help.';
+          });
+      });
+    })();
   </script>
 </div>
 
