@@ -1281,7 +1281,7 @@ document.addEventListener("DOMContentLoaded", function () {
   </div>
 
   <div class="cta-row">
-    <a href="https://buy.stripe.com/7sY9AM1fJ1NN3yf2FrdIA03" class="btn" id="subscribeBtn">Subscribe now — £365/yr</a>
+    <a href="https://t.me/EdgeScoutAdminBot?start=annual" class="btn" id="subscribeBtn">Subscribe now — £365/yr</a>
   </div>
 
   <style>
@@ -1290,17 +1290,34 @@ document.addEventListener("DOMContentLoaded", function () {
   </style>
 
   <script>
-    var plans = {
-      monthly: { url: 'https://buy.stripe.com/14AaEQ5vZfED2ub1BndIA02', label: 'Subscribe now — £50/mo' },
-      annual:  { url: 'https://buy.stripe.com/7sY9AM1fJ1NN3yf2FrdIA03', label: 'Subscribe now — £365/yr' }
+    var planLabels = {
+      monthly: 'Subscribe now — £50/mo',
+      annual: 'Subscribe now — £365/yr'
     };
+    var currentPlan = 'annual';
+
+    function telegramPlanUrl(plan) {
+      var referral = (window.promotekit_referral || '').toString().trim();
+      var payload = plan;
+      if (referral && /^[A-Za-z0-9_-]+$/.test(referral)) {
+        var prefix = plan === 'monthly' ? 'm_' : 'a_';
+        if ((prefix + referral).length <= 64) payload = prefix + referral;
+      }
+      return 'https://t.me/EdgeScoutAdminBot?start=' + encodeURIComponent(payload);
+    }
+
     function selectPlan(plan) {
+      currentPlan = plan;
       document.getElementById('plan-monthly').classList.toggle('selected', plan === 'monthly');
       document.getElementById('plan-annual').classList.toggle('selected', plan === 'annual');
       var btn = document.getElementById('subscribeBtn');
-      btn.href = plans[plan].url;
-      btn.textContent = plans[plan].label;
+      btn.href = telegramPlanUrl(plan);
+      btn.textContent = planLabels[plan];
     }
+
+    document.getElementById('subscribeBtn').addEventListener('click', function () {
+      this.href = telegramPlanUrl(currentPlan);
+    });
   </script>
 </div>
 
