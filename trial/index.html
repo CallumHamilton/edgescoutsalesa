@@ -504,6 +504,8 @@
     scrollbar-width: thin;
     scrollbar-color: var(--border) transparent;
     cursor: grab;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
   }
 
   .testimonial-scroll:active {
@@ -528,6 +530,7 @@
     border-left: 3px solid var(--accent);
     padding: 2rem 2.5rem;
     background: var(--surface);
+    scroll-snap-align: start;
   }
 
   .testimonial-quote {
@@ -547,6 +550,38 @@
 
   .testimonial-attr strong {
     color: var(--accent);
+  }
+
+  .testimonial-controls {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    padding: 0 3rem 1rem 0;
+  }
+  .testimonial-control {
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--accent);
+    font: inherit;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  .testimonial-control:hover,
+  .testimonial-control:focus-visible {
+    border-color: var(--accent);
+  }
+
+  @media (max-width: 680px) {
+    .testimonial-section { padding-left: 1.5rem; }
+    .testimonial-section .section-head,
+    .testimonial-controls { padding-right: 1.5rem; }
+    .testimonial-scroll { padding-right: 1.5rem; }
+    .testimonial-card {
+      flex-basis: calc(100vw - 3rem);
+      padding: 1.5rem;
+    }
   }
 
   /* PRICING */
@@ -1272,15 +1307,65 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 <div class="testimonial-section">
-  <div class="section-head" data-trial-open>
+  <div class="section-head">
     <h2>What subscribers say</h2>
     <div class="section-rule"></div>
   </div>
-  <div class="testimonial-card">
-    <div class="testimonial-quote">"I've been proofing (and backing!) the EdgeScout selections since their inception in October 2025 and have been massively impressed. The edge is large and has now been sustained across over 700 bets. I don't have access to all the books used but have found it easy to secure a substantial profit using the ones I do have. Thus far I have encountered restrictions on only one account. I have zero hesitation in recommending EdgeScout."</div>
-    <div class="testimonial-attr"><strong>Kieran Ward</strong> — Make Your Betting Pay</div>
+  <div class="testimonial-controls">
+    <button class="testimonial-control" id="testimonialPrev" type="button" aria-label="Previous testimonial">←</button>
+    <button class="testimonial-control" id="testimonialNext" type="button" aria-label="Next testimonial">→</button>
+  </div>
+  <div class="testimonial-scroll" id="testimonialScroll" aria-label="Subscriber testimonials">
+    <article class="testimonial-card">
+      <div class="testimonial-quote">"I've been proofing (and backing!) the EdgeScout selections since their inception in October 2025 and have been massively impressed. The edge is large and has now been sustained across over 700 bets. I don't have access to all the books used but have found it easy to secure a substantial profit using the ones I do have. Thus far I have encountered restrictions on only one account. I have zero hesitation in recommending EdgeScout."</div>
+      <div class="testimonial-attr"><strong>Kieran Ward</strong> — Make Your Betting Pay</div>
+    </article>
+    <article class="testimonial-card">
+      <div class="testimonial-quote">"Great service with well-researched tips and a helpful community discussing other angles and bets.<br><br>Callum is really responsive to questions and suggestions, and the community works well to suggest alternatives if bets are only available at a couple of books.<br><br>Most bets are released in the build-up to games, but there are always multiple options, sometimes including exchange bets too. As with any service, there'll be ups and downs, but the historical ROI is good and you feel confident seeing Callum's explanations added to many of the bets."</div>
+      <div class="testimonial-attr"><strong>Tom G</strong></div>
+    </article>
+    <article class="testimonial-card">
+      <div class="testimonial-quote">"Been following since the World Cup and made a good few quid even though I only have about four or five books available.<br><br>It can get hectic at busy times, but if you set some time aside on big European nights and at 3pm on Saturday, it's pretty easy to get most of them on. Most bets are sent out with an hour or half an hour's notice.<br><br>Definitely recommend the service."</div>
+      <div class="testimonial-attr"><strong>William T</strong></div>
+    </article>
   </div>
 </div>
+
+<script>
+  (function () {
+    var scroller = document.getElementById('testimonialScroll');
+    var previous = document.getElementById('testimonialPrev');
+    var next = document.getElementById('testimonialNext');
+    if (!scroller || !previous || !next) return;
+
+    function cardWidth() {
+      var first = scroller.querySelector('.testimonial-card');
+      return first ? first.getBoundingClientRect().width + 24 : 500;
+    }
+
+    function move(direction) {
+      var atEnd = scroller.scrollLeft + scroller.clientWidth >= scroller.scrollWidth - 8;
+      var atStart = scroller.scrollLeft <= 8;
+      if (direction > 0 && atEnd) {
+        scroller.scrollTo({ left: 0, behavior: 'smooth' });
+      } else if (direction < 0 && atStart) {
+        scroller.scrollTo({ left: scroller.scrollWidth, behavior: 'smooth' });
+      } else {
+        scroller.scrollBy({ left: direction * cardWidth(), behavior: 'smooth' });
+      }
+    }
+
+    previous.addEventListener('click', function () { move(-1); });
+    next.addEventListener('click', function () { move(1); });
+
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      var timer = window.setInterval(function () { move(1); }, 7000);
+      scroller.addEventListener('pointerdown', function () {
+        window.clearInterval(timer);
+      }, { once: true });
+    }
+  })();
+</script>
 
 <div class="pricing">
   <div class="section-head">
