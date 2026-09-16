@@ -1016,25 +1016,42 @@
 <script async src="https://cdn.promotekit.com/pk.js" data-promotekit="8b0de79d-abfe-4d18-827e-08ad70d10fee"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    setTimeout(function () {
-        document.querySelectorAll('a[href^="https://buy.stripe.com/"]').forEach(function (link) {
-            var oldBuyUrl = link.getAttribute("href");
-            var referralId = window.promotekit_referral;
-            if (referralId && !oldBuyUrl.includes("client_reference_id")) {
-                var separator = oldBuyUrl.includes("?") ? "&" : "?";
-                var newBuyUrl = oldBuyUrl + separator + "client_reference_id=" + encodeURIComponent(referralId);
-                link.setAttribute("href", newBuyUrl);
+    function referralId() {
+        var value = (window.promotekit_referral || "").toString().trim();
+        if (value) return value;
+        var cookie = document.cookie.split("; ").find(function (item) {
+            return item.indexOf("promotekit_referral=") === 0;
+        });
+        return cookie ? decodeURIComponent(cookie.split("=").slice(1).join("=")) : "";
+    }
+
+    document.querySelectorAll('a[href^="https://buy.stripe.com/"]').forEach(function (link) {
+        link.addEventListener("click", function (event) {
+            var originalUrl = link.getAttribute("href").split("?")[0];
+            var affiliateVisit = new URLSearchParams(window.location.search).has("via");
+            var started = Date.now();
+            event.preventDefault();
+
+            function continueToStripe() {
+                var referral = referralId();
+                if (referral) {
+                    window.location.href = originalUrl + "?client_reference_id=" + encodeURIComponent(referral);
+                    return;
+                }
+                if (!affiliateVisit) {
+                    window.location.href = originalUrl;
+                    return;
+                }
+                if (Date.now() - started < 4000) {
+                    window.setTimeout(continueToStripe, 100);
+                    return;
+                }
+                link.textContent = "Affiliate tracking did not load — try again";
             }
-        });
 
-        document.querySelectorAll("[pricing-table-id]").forEach(function (element) {
-            element.setAttribute("client-reference-id", window.promotekit_referral);
+            continueToStripe();
         });
-
-        document.querySelectorAll("[buy-button-id]").forEach(function (element) {
-            element.setAttribute("client-reference-id", window.promotekit_referral);
-        });
-    }, 1500);
+    });
 });
 </script>
 
@@ -1296,8 +1313,18 @@ document.addEventListener("DOMContentLoaded", function () {
     };
     var currentPlan = 'annual';
 
-    function telegramPlanUrl(plan) {
+    function getPromoteKitReferral() {
       var referral = (window.promotekit_referral || '').toString().trim();
+      if (referral) return referral;
+
+      var cookie = document.cookie.split('; ').find(function (item) {
+        return item.indexOf('promotekit_referral=') === 0;
+      });
+      return cookie ? decodeURIComponent(cookie.split('=').slice(1).join('=')) : '';
+    }
+
+    function telegramPlanUrl(plan) {
+      var referral = getPromoteKitReferral();
       var payload = plan;
       if (referral && /^[A-Za-z0-9_-]+$/.test(referral)) {
         var prefix = plan === 'monthly' ? 'm_' : 'a_';
@@ -1315,8 +1342,30 @@ document.addEventListener("DOMContentLoaded", function () {
       btn.textContent = planLabels[plan];
     }
 
-    document.getElementById('subscribeBtn').addEventListener('click', function () {
-      this.href = telegramPlanUrl(currentPlan);
+    document.getElementById('subscribeBtn').addEventListener('click', function (event) {
+      event.preventDefault();
+      var button = this;
+      var affiliateVisit = new URLSearchParams(window.location.search).has('via');
+      var started = Date.now();
+
+      function continueToTelegram() {
+        var referral = getPromoteKitReferral();
+        if (referral || !affiliateVisit) {
+          window.location.href = telegramPlanUrl(currentPlan);
+          return;
+        }
+        if (Date.now() - started < 4000) {
+          window.setTimeout(continueToTelegram, 100);
+          return;
+        }
+
+        button.textContent = 'Affiliate tracking did not load — try again';
+        window.setTimeout(function () {
+          button.textContent = planLabels[currentPlan];
+        }, 3000);
+      }
+
+      continueToTelegram();
     });
   </script>
 </div>
